@@ -27,7 +27,7 @@ def main():
     start_button = tk.Button(root, text="Start Listening", command=start_key_listener)
     start_button.pack(pady=20)
 
-    # Uruchomienie głównej pętli aplikacji tkinter
+    # Uruchomienie głównej pętli aplikacji tkinterdfsffdddd
     root.mainloop()
 
 if __name__ == "__main__":

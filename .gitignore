@@ -1,0 +1,5 @@
+# Ignorowanie katalogu build
+project/build
+
+# Ignorowanie katalogu dist
+project/dist/
