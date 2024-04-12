@@ -15,13 +15,13 @@ class Window(QWidget):
 
 
 
-    def switchWindow(self, window_instance_to_show, window_instance_to_hide):
+    def switchWindow(self, windowInstanceToShow, windowInstanceToHide):
         # Ustawienie minimalnego rozmiaru okna
-        window_instance_to_hide.setMinimumSize(self.size())
-        window_instance_to_show.setMinimumSize(self.size())
+        windowInstanceToHide.setMinimumSize(self.size())
+        windowInstanceToShow.setMinimumSize(self.size())
 
         # Ukrycie bieżącego okna i pokazanie nowego okna
-        window_instance_to_show.show()
-        window_instance_to_hide.hide()
+        windowInstanceToShow.show()
+        windowInstanceToHide.hide()
         
 
