@@ -25,3 +25,6 @@ class Window(QWidget):
         windowInstanceToHide.hide()
         
 
+    def closeEvent(self, event):
+        event.ignore()
+        self.hide()

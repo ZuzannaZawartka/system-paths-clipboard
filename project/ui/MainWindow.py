@@ -9,9 +9,9 @@ class MainWindow(Window):
 
 
     def setUpUI(self):
-        # Dodanie przycisku do przejścia do SettingsWindow
-        self.button1 = QPushButton('Settings')
-        self.layout.addWidget(self.button1)
+        # # Dodanie przycisku do przejścia do SettingsWindow
+        # self.button1 = QPushButton('Settings')
+        # self.layout.addWidget(self.button1)
 
        # Etykieta i pole do wprowadzania tekstu
         self.label = QLabel('Edit :')
@@ -29,3 +29,8 @@ class MainWindow(Window):
 
     def on_item_selected(self):
         self.text_edit.setText(self.list_widget.currentItem().text())
+    
+    def closeEvent(self, event):
+        event.ignore()
+        self.hide()
+        

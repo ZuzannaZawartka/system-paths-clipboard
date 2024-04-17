@@ -6,16 +6,15 @@ from WindowManager import WindowManager
 
 class AppManager:
     def __init__(self):
-        self.app = QApplication(sys.argv)
         self.windowManager = WindowManager()
         # self.databaseManager= DatabaseManager()
 
     def run(self):
-        # Uruchom główne okno
-        self.windowManager.run()
-        sys.exit(self.app.exec_())
-
+        self.windowManager.run();
+       
 
 if __name__ == '__main__':
+    app = QApplication(sys.argv)
     app_manager = AppManager()
     app_manager.run()
+    sys.exit(app.exec_())
