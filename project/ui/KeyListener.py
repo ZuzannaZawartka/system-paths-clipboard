@@ -1,8 +1,11 @@
-from pynput import keyboard
-import pyperclip,time
-from PyQt5.QtCore import QObject, pyqtSignal, QThread
 
-shortcuts = {
+import time
+import pyperclip
+from pynput import keyboard
+from PyQt5.QtCore import QObject, pyqtSignal, QThread # pylint: disable = no-name-in-module
+
+
+SHORTCUTS = {
     'copy': '\x03',  # Skrót 'copy' (Ctrl+C)
     'paste': '\x16',  # Skrót 'paste' (Ctrl+V)
 }
@@ -36,7 +39,7 @@ class KeyListener(QObject):
         """
         Funkcja nasłuchująca klawiatury.
         """
-        with keyboard.Listener(on_press=self.on_press) as listener:
+        with keyboard.Listener(on_press=self.on_press):
             self.thread.exec_()  # Uruchom pętlę wątku
 
     def on_press(self, key):
@@ -49,9 +52,9 @@ class KeyListener(QObject):
         :param key: Obiekt reprezentujący naciśnięty klawisz.
         """
         try:
-            for action, value in shortcuts.items():
+            for value in SHORTCUTS.values():
                 if key.char == value:
-                    if self.selected_text != None:  # Jeśli tekst juz byl zaznaczony
+                    if self.selected_text is not None:  # Jeśli tekst juz byl zaznaczony
                         time.sleep(0.1) # Poczekaj 0.1 sekundy aby poprawnie skopiować tekst
                     self.selected_text = pyperclip.paste() # Pobierz zaznaczony tekst
                     self.key_pressed.emit(self.selected_text) # Wyemituj sygnał key_pressed

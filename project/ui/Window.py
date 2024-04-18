@@ -1,7 +1,15 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout
-from PyQt5.QtCore import QSize
+from PyQt5.QtWidgets import QWidget, QVBoxLayout # pylint: disable = no-name-in-module
 
 class Window(QWidget):
+    """
+    Klasa `Window` reprezentuje podstawowe okno aplikacji.
+
+    Dostarcza funkcjonalności takie jak przełączanie między oknami
+    oraz obsługa zdarzenia zamykania okna.
+
+    Attributes:
+        layout (QVBoxLayout): Układ pionowy okna.
+    """
 
     def __init__(self, title):
         """
@@ -11,7 +19,7 @@ class Window(QWidget):
             title (str): Tytuł okna.
         """
         super(Window, self).__init__()
-        
+
         # Ustawienie tytułu okna
         self.setWindowTitle(title)
 
@@ -19,28 +27,28 @@ class Window(QWidget):
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
-    def switchWindow(self, windowInstanceToShow, windowInstanceToHide):
+    def switch_window(self, window_instance_to_show, window_instance_to_hide):
         """
         Przełącza między oknami.
 
         Args:
-            windowInstanceToShow (QWidget): Instancja okna do pokazania.
-            windowInstanceToHide (QWidget): Instancja okna do ukrycia.
+            window_instance_to_show (QWidget): Instancja okna do pokazania.
+            window_instance_to_hide (QWidget): Instancja okna do ukrycia.
         """
         # Ustawienie minimalnego rozmiaru okna
-        windowInstanceToHide.setMinimumSize(self.size())
-        windowInstanceToShow.setMinimumSize(self.size())
+        window_instance_to_hide.setMinimumSize(self.size())
+        window_instance_to_show.setMinimumSize(self.size())
 
         # Ukrycie bieżącego okna i pokazanie nowego okna
-        windowInstanceToShow.show()
-        windowInstanceToHide.hide()
-        
-    def closeEvent(self, event):
+        window_instance_to_show.show()
+        window_instance_to_hide.hide()
+
+    def closeEvent(self, event): # pylint: disable=invalid-name
         """
         Obsługuje zdarzenie zamykania okna.
 
         Args:
             event (QCloseEvent): Zdarzenie zamykania okna.
         """
-        event.ignore()
-        self.hide()
+        event.ignore()  # Ignoruj domyślną obsługę zdarzenia zamykania
+        self.hide()  # Ukryj okno, zamiast zamykać je

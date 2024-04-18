@@ -1,24 +1,53 @@
-import sys,os
-from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QMenu, QSystemTrayIcon,QMessageBox
-from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import QSize
+import os
+import sys
+from PyQt5.QtGui import QIcon  # pylint: disable = no-name-in-module
+from PyQt5.QtCore import QSize  # pylint: disable = no-name-in-module
+from PyQt5.QtWidgets import (  # pylint: disable = no-name-in-module
+    QApplication,
+    QAction,
+    QMenu,
+    QSystemTrayIcon,
+)
 from .MainWindow import MainWindow
 
+
 class WindowManager:
+    """
+    Klasa `WindowManager` zarządza interakcjami z oknami aplikacji i ikoną w zasobniku systemowym.
+
+    Attributes:
+        app (QApplication): Obiekt aplikacji PyQt.
+        window_size (QSize): Rozmiar okna głównego.
+        main_window (MainWindow): Główne okno aplikacji.
+        tray_menu (QMenu): Menu kontekstowe dla ikony zasobnika systemowego.
+        tray_icon (QSystemTrayIcon): Ikona zasobnika systemowego.
+    """
+
     def __init__(self):
-
+        """
+        Inicjalizacja `WindowManager`.
+        """
         self.app = QApplication(sys.argv)
-        self.initUi()
-        self.initWindows()
-        self.initTray()
+        self.init_ui()
+        self.init_windows()
+        self.init_tray()
 
-    def initUi(self):
+    def init_ui(self):
+        """
+        Inicjalizacja ustawień interfejsu użytkownika.
+        """
         self.window_size = QSize(100, 400)
 
-    def initWindows(self):
+    def init_windows(self):
+        """
+        Inicjalizacja głównego okna aplikacji.
+        """
         self.main_window = MainWindow()
 
-    def initTray(self):
+    def init_tray(self):
+        """
+        Inicjalizacja ikony w zasobniku systemowym.
+        """
         # Utwórz akcję dla opcji "Exit"
         exit_action = QAction("Exit", self.app)
         exit_action.triggered.connect(self.close)
@@ -40,32 +69,45 @@ class WindowManager:
         self.tray_icon = QSystemTrayIcon(QIcon(icon_path), self.app)
         self.tray_icon.setToolTip("My Tray App")
         self.tray_icon.setContextMenu(self.tray_menu)
-
-
-        self.tray_icon.activated.connect(self.whenTrayClicked)# Po kliknięciu w ikonę zasobnika systemowego
+        self.tray_icon.activated.connect(self.on_tray_click)
 
         # Pokaż ikonę w zasobniku systemowym
         self.tray_icon.show()
 
-    def whenTrayClicked(self, reason):
-        if reason != QSystemTrayIcon.Context:  # Sprawdź, czy aktywacja jest spowodowana menu kontekstowym QSystemTrayIcon.Trigger - reprezentuje standardowe akcje, takie jak kliknięcie lewym przyciskiem myszy
-            if self.main_window.isHidden(): # Sprawdź, czy okno jest ukryte
-                    self.main_window.show()# Pokaż okno
+    def on_tray_click(self, reason):
+        """
+        Obsługa akcji po kliknięciu na ikonę zasobnika systemowego.
+
+        Args:
+            reason (QSystemTrayIcon.ActivationReason): Powód aktywacji ikony.
+        """
+        if reason != QSystemTrayIcon.Context:
+            if self.main_window.isHidden():
+                self.main_window.show()
             else:
-                if(self.main_window.isMinimized()):# Sprawdź, czy okno jest zminimalizowane
-                    self.main_window.showNormal();# Pokaż okno
+                if self.main_window.isMinimized():
+                    self.main_window.showNormal()
                 else:
-                    self.main_window.hide()# Ukryj okno
+                    self.main_window.hide()
 
     def run(self):
-        # Ukryj główne okno na starcie
-        self.main_window.show();
+        """
+        Uruchomienie aplikacji.
+
+        Rozpoczyna wyświetlanie głównego okna i uruchamia pętlę zdarzeń aplikacji.
+        """
+        self.main_window.show()
         sys.exit(self.app.exec_())
 
     def close(self):
-        # Zatrzymaj aplikację, ale nie wychodź z app.exec_()
+        """
+        Zamknięcie aplikacji.
+
+        Zatrzymuje aplikację, ale nie wychodzi z `app.exec_()`.
+        """
         self.app.quit()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app_manager = WindowManager()
     app_manager.run()
