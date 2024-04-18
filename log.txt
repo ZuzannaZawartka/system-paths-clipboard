@@ -1,0 +1,1 @@
+d d Key.ctrl_l \x06 \x06 Key.ctrl_l \x04 \x04 \x04 Key.ctrl_l \x1a Key.ctrl_l \x1a Key.shift ) Key.ctrl_l \x13 Key.backspace Key.backspace Key.backspace Key.ctrl_l \x1a \x1a \x1a \x1a \x1a \x1a \x1a \x1a \x1a \x1a \x1a \x1a \x1a \x1a Key.ctrl_l \x1a \x1a \x1a \x1a \x1a Key.ctrl_l \x19 \x19 Key.ctrl_l \x03 Key.ctrl_l \x16 Key.ctrl_l \x13 Key.backspace Key.ctrl_l \x13 

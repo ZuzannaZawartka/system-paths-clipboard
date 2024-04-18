@@ -1,49 +1,12 @@
-# import tkinter as tk
-# from pynput import keyboard
-
-# def on_press(key):
-#     # Obsługa zdarzenia naciśnięcia klawisza
-#     try:
-#         # Pobierz nazwę klawisza
-#         key_name = key.char
-#     except AttributeError:
-#         # Jeśli nie można pobrać nazwy (np. klawisz specjalny), użyj opisu
-#         key_name = str(key)
-
-#     # Wyświetl informację o naciśniętym klawiszu
-#     print(f'Key {key_name} pressed')
-
-# def start_key_listener():
-#     # Rozpocznij nasłuchiwanie zdarzeń klawiatury
-#     listener = keyboard.Listener(on_press=on_press)
-#     listener.start()
-
-# def main():
-#     # Tworzenie głównego okna aplikacji tkinter
-#     root = tk.Tk()
-#     root.title("Global Keyboard Listener")
-
-#     # Przycisk rozpoczynający nasłuchiwanie klawiatury
-#     start_button = tk.Button(root, text="Start Listening", command=start_key_listener)
-#     start_button.pack(pady=20)
-
-#     # Uruchomienie głównej pętli aplikacji tkinterdfsffdddd
-#     root.mainloop()
-
-# if __name__ == "__main__":
-#     main()
-
-import sys
-import os
+import sys,os
 from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QMenu, QSystemTrayIcon,QMessageBox
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QSize
 from MainWindow import MainWindow
-from SettingsWindow import SettingsWindow
 
 class WindowManager:
     def __init__(self):
-        self.active_window = None;
+
         self.app = QApplication(sys.argv)
         self.initUi()
         self.initWindows()
@@ -94,14 +57,9 @@ class WindowManager:
                 else:
                     self.main_window.hide()# Ukryj okno
 
-
-    def hideMainWindow(self, event):
-        event.ignore()  # Ignoruj zamknięcie okna
-        self.main_window.hide()  # Ukryj okno
-
     def run(self):
         # Ukryj główne okno na starcie
-        self.main_window.hide();
+        self.main_window.show();
         sys.exit(self.app.exec_())
 
     def close(self):
