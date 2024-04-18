@@ -30,7 +30,3 @@ class MainWindow(Window):
     def on_item_selected(self):
         self.text_edit.setText(self.list_widget.currentItem().text())
     
-    def closeEvent(self, event):
-        event.ignore()
-        self.hide()
-        
