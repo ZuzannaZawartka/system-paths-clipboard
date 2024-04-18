@@ -1,7 +1,10 @@
 import sys
 from PyQt5.QtWidgets import QApplication
-from WindowManager import WindowManager
-from KeyListener import KeyListener
+from ui.WindowManager import WindowManager
+
+from ui.KeyListener import KeyListener
+from logic.ClipboardManager import ClipboardManager
+
 # from project.data.DatabaseManager import DatabaseManager
 
 
@@ -13,9 +16,14 @@ class AppManager:
         self.key_listener = KeyListener()
         self.key_listener.key_pressed.connect(self.handle_key_pressed)
 
+        # Utwórz instancję klasy ClipboardManager (połączenie między ui a bazą danych)
+        self.clipboard_manager = ClipboardManager()
+
     def handle_key_pressed(self, key):
         # Obsługa naciśnięcia klawisza
         print(f"Key pressed: {key}")
+        # self.clipboard_manager.checkIsInDatabase(key)
+        # print(self.clipboard_manager.getDataFromDatabase())
 
     def run(self):
         self.key_listener.start_listening()

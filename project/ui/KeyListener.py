@@ -1,4 +1,5 @@
 from pynput import keyboard
+import pyperclip,time
 from PyQt5.QtCore import QObject, pyqtSignal, QThread
 
 shortcuts = {
@@ -20,6 +21,7 @@ class KeyListener(QObject):
         Inicjalizuje obiekt `KeyListener`.
         """
         super().__init__()
+        self.selected_text = None
 
     def start_listening(self):
         """
@@ -42,14 +44,17 @@ class KeyListener(QObject):
         Obsługuje zdarzenie naciśnięcia klawisza.
         
         Sprawdza, czy naciśnięty klawisz odpowiada któremuś z zdefiniowanych skrótów.
-        Jeśli tak, emituje sygnał `key_pressed` z nazwą odpowiadającej akcji.
+        Jeśli tak, emituje sygnał `key_pressed` z zaznaczonym tekstem.
         
         :param key: Obiekt reprezentujący naciśnięty klawisz.
         """
         try:
             for action, value in shortcuts.items():
                 if key.char == value:
-                   self.key_pressed.emit(action) # Wyemituj sygnał key_pressed
+                    if self.selected_text != None:  # Jeśli tekst juz byl zaznaczony
+                        time.sleep(0.1) # Poczekaj 0.1 sekundy aby poprawnie skopiować tekst
+                    self.selected_text = pyperclip.paste() # Pobierz zaznaczony tekst
+                    self.key_pressed.emit(self.selected_text) # Wyemituj sygnał key_pressed
 
         except AttributeError:
             pass  # Ignoruj klawisze specjalne

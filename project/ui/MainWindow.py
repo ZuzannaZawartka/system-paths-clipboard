@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QPushButton,QLineEdit,QLabel,QListWidget
-from Window import Window
+from .Window import Window
 
 class MainWindow(Window):
 

@@ -2,7 +2,7 @@ import sys,os
 from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QMenu, QSystemTrayIcon,QMessageBox
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QSize
-from MainWindow import MainWindow
+from .MainWindow import MainWindow
 
 class WindowManager:
     def __init__(self):
