@@ -10,7 +10,6 @@ from PyQt5.QtWidgets import (  # pylint: disable = no-name-in-module
 )
 from .MainWindow import MainWindow
 
-
 class WindowManager:
     """
     Klasa `WindowManager` zarządza interakcjami z oknami aplikacji i ikoną w zasobniku systemowym.

@@ -1,29 +1,23 @@
-
 import time
 import pyperclip
 from pynput import keyboard
+from constants import SHORTCUTS, COPY_DELAY
 from PyQt5.QtCore import QObject, pyqtSignal, QThread # pylint: disable = no-name-in-module
-
-
-SHORTCUTS = {
-    'copy': '\x03',  # Skrót 'copy' (Ctrl+C)
-    'paste': '\x16',  # Skrót 'paste' (Ctrl+V)
-}
 
 class KeyListener(QObject):
     """
     Klasa `KeyListener` reprezentuje obiekt do nasłuchiwania klawiatury
     i emitowania sygnałów w przypadku naciśnięcia odpowiednich skrótów.
     """
-
     # Sygnał emitowany przy naciśnięciu odpowiedniego skrótu
     key_pressed = pyqtSignal(str)
 
-    def __init__(self):
+    def __init__(self,clipboard_manager):
         """
         Inicjalizuje obiekt `KeyListener`.
         """
         super().__init__()
+        self.clipboard_manager = clipboard_manager
         self.selected_text = None
 
     def start_listening(self):
@@ -52,12 +46,29 @@ class KeyListener(QObject):
         :param key: Obiekt reprezentujący naciśnięty klawisz.
         """
         try:
-            for value in SHORTCUTS.values():
-                if key.char == value:
-                    if self.selected_text is not None:  # Jeśli tekst juz byl zaznaczony
-                        time.sleep(0.1) # Poczekaj 0.1 sekundy aby poprawnie skopiować tekst
-                    self.selected_text = pyperclip.paste() # Pobierz zaznaczony tekst
-                    self.key_pressed.emit(self.selected_text) # Wyemituj sygnał key_pressed
+            if key.char == SHORTCUTS['copy']:
+                self.on_copy()
+            if key.cahr ==  SHORTCUTS['paste']:
+                self.on_paste()
 
         except AttributeError:
             pass  # Ignoruj klawisze specjalne
+
+    def on_copy(self):
+        """
+        Funkcja wywoływana podczas naciśnięcia skrótu 'copy' (ctrl + c).
+
+        Sprawdza czy tekst był już zaznaczony, a następnie jesli był wywołuje Opóźnienie.
+        Następnie pobiera zaznaczony tekst i wywoluje funkcję na bazie danych.
+        """
+        if self.selected_text is not None:  # Jeśli tekst juz byl zaznaczony
+            time.sleep(COPY_DELAY) # Poczekaj 0.1 sekundy aby poprawnie skopiować tekst
+        self.selected_text = pyperclip.paste() # Pobierz zaznaczony tekst
+
+        self.clipboard_manager.checkIsInDatabase(self.selected_text)
+
+    def on_paste(self):
+        """
+        Funkcja wywoływana podczas naciśnięcia skrótu 'paste' (ctrl + v).    
+        """
+        pass

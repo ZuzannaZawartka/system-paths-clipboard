@@ -1,10 +1,9 @@
 import sqlite3
-
-DB_PATH = 'project\data\database.db'
+import constants as const
 
 class DatabaseManager:
-    def __init__(self, db_name):
-        self.db_name = db_name
+    def __init__(self):
+        self.db_name = const.DB_PATH
         self.connection = sqlite3.connect(self.db_name)
         self.cursor = self.connection.cursor()
 
@@ -26,7 +25,7 @@ class DatabaseManager:
 
 #testy
 if __name__ == "__main__":
-    db_manager = DatabaseManager(DB_PATH)
+    db_manager = DatabaseManager()
 
     db_manager.create_table()  # Utwórz tabelę przy pierwszym uruchomieniu
     db_manager.add_data("plik1")

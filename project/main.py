@@ -6,10 +6,7 @@ from logic.ClipboardManager import ClipboardManager
 
 class AppManager:
     """
-    Klasa `AppManager` zarządza główną logiką aplikacji.
-
-    Odpowiada za inicjalizację okna, nasłuchiwanie klawiatury
-    i obsługę zdarzeń związanych z klawiaturą.
+    Klasa `AppManager` łączy wszystkie elementy aplikacji w całość.
 
     Attributes:
         window_manager (WindowManager): Obiekt zarządzający interfejsem użytkownika.
@@ -21,23 +18,8 @@ class AppManager:
         Inicjalizuje obiekt `AppManager`.
         """
         self.window_manager = WindowManager()
-        self.key_listener = KeyListener()
-        self.key_listener.key_pressed.connect(self.handle_key_pressed)
         self.clipboard_manager = ClipboardManager()
-
-    def handle_key_pressed(self, key):
-        """
-        Obsługuje zdarzenie naciśnięcia klawisza.
-
-        Wyświetla naciśnięty klawisz na konsoli.
-
-        Args:
-            key (str): Naciśnięty klawisz.
-        """
-        print(f"Key pressed: {key}")
-        # Przykładowa obsługa klawisza: sprawdzanie czy jest w bazie danych
-        # self.clipboard_manager.checkIsInDatabase(key)
-        # print(self.clipboard_manager.getDataFromDatabase())
+        self.key_listener = KeyListener(self.clipboard_manager)
 
     def run(self):
         """
