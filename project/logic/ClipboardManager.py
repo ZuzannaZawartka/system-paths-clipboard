@@ -1,28 +1,52 @@
 from data.DatabaseManager import DatabaseManager
 
 class ClipboardManager:
-    def __init__(self):
+    def __init__(self,window_manager):
         self.clipboard = None
+        self.window_manager = window_manager
+        self.main_window = self.window_manager.main_window
+        self.main_window_list = self.main_window.main_window_list
         self.database_manager = DatabaseManager()
 
-    def addToDatabase(self, clipboard):
+        self.on_init_fetch_data_from_database_to_ui()
+
+
+    def on_init_fetch_data_from_database_to_ui(self):
+        """
+            Funkcja odpowiada za pobranie danych z bazy danych i zainicjalizowanie listy w oknie głównym.
+        """
+        data = self.database_manager.get_all_data() # Pobranie wszystkich danych z bazy danych
+        self.main_window_list.init_list_widget(data) # Inicjalizacja listy w oknie głównym
+
+    def add_to_database(self, clipboard):
         """
             Funkcja odpowiada za kontakt z bazą danych.
 
             Sprawdza czy wartość znajduje się w bazie danych.
-            Jeśli sie znajduje indkesuje wartość jako najnowszą, jeśli nie dodaje wartość do bazy danych.
+            Jeśli się znajduje to usuwa ją i dodaje ponownie na pozycje najnowsza.
+            Jeśli nie znajduje się to dodaje wartość do bazy danych.
+            Wywoluje zmiane danych na liście w oknie głównym.
+
+            Dzięki czemu pobieramy wszystkie dane z bazy tylko gdy jest to konieczne.
+            W pozostałych przypadkach dodając jeden element, robimy to szybciej.
 
             :param clipboard: Tekst zapisany w schowku.
         """
         self.clipboard = clipboard # Przypisanie wartości do zmiennej clipboard   
-        print("ClipboardManager: ", self.clipboard)
-        self.database_manager.add_data(self.clipboard) # Dodanie wartości do bazy danych
+
+        if(self.database_manager.check_if_exists(self.clipboard)):
+            self.database_manager.delete_data(self.clipboard)
+            self.database_manager.add_data(self.clipboard)
+            data = self.database_manager.get_all_data()
+            self.main_window_list.refresh_list_widget(data)
+        else:
+            self.database_manager.add_data(self.clipboard)
+            data = self.database_manager.get_last_data()
+            self.main_window_list.add_item_to_list_widget(data)
         
 
     def getAllDataFromDatabase(self):
         pass
 
-    
-if __name__ == '__main__':
-    clipboard_manager = ClipboardManager()
+
     

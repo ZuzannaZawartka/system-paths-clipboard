@@ -4,6 +4,7 @@ import constants as const
 class DatabaseManager:
     def __init__(self):
         self.db_name = const.DB_PATH
+        self.create_table()
 
     def execute_query(self, query, *params):
         with sqlite3.connect(self.db_name) as connection:
@@ -23,13 +24,10 @@ class DatabaseManager:
         """
             Funkcja dodaje wartość do bazy danych.
 
-            Jeśli wartość już istnieje, to zostanie usunięta i dodana ponownie na końcu listy.
-            Jeśli jest nowa, to zostanie dodana na końcu listy.
+            Wartość zostaje dodana do bazy danych w tabeli 'clipboard'.
 
             :param value: wartość do dodania
         """
-        if self.check_if_exists(value):
-            self.delete_data(value)
         query = "INSERT INTO clipboard (value) VALUES (?)"
         self.execute_query(query, value)
 
@@ -45,12 +43,28 @@ class DatabaseManager:
         cursor = self.execute_query(query, limit)
         return [row[0] for row in cursor.fetchall()]
 
+    def get_last_data(self):
+        """
+            Funkcja zwraca ostatnią wartość z bazy danych.
+        """
+        query = "SELECT value FROM clipboard ORDER BY id DESC LIMIT 1"
+        cursor = self.execute_query(query)
+        return cursor.fetchone()[0]
+
     def check_if_exists(self, value):
+        """
+            Funkcja sprawdza czy wartość znajduje się w bazie danych.
+        """
         query = "SELECT value FROM clipboard WHERE value = ?"
         cursor = self.execute_query(query, value)
         return cursor.fetchone() is not None
 
     def delete_data(self, value):
+        """
+            Funkcja usuwa wartość z bazy danych.
+
+            :param value: wartość do usunięcia
+        """
         query = "DELETE FROM clipboard WHERE value = ?"
         self.execute_query(query, value)
 
@@ -65,5 +79,7 @@ if __name__ == "__main__":
 
     db_manager.delete_data("plik1")
 
-    records = db_manager.get_all_data()
-    print(records)
+    # records = db_manager.get_all_data()
+
+    print(db_manager.get_last_data())
+    # print(records)

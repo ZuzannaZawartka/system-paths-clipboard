@@ -27,8 +27,8 @@ class WindowManager:
         Inicjalizacja `WindowManager`.
         """
         self.app = QApplication(sys.argv)
-        self.init_ui()
         self.init_windows()
+        self.init_ui()
         self.init_tray()
 
     def init_ui(self):
@@ -106,7 +106,3 @@ class WindowManager:
         """
         self.app.quit()
 
-
-if __name__ == "__main__":
-    app_manager = WindowManager()
-    app_manager.run()

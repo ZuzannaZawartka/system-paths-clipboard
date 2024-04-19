@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import (  # pylint: disable = no-name-in-module
     QListWidget,
 )
 from .Window import Window
-
+from .MainWindowList import MainWindowList # pylint: disable = no-name-in-module
 
 class MainWindow(Window):
     """
@@ -26,9 +26,10 @@ class MainWindow(Window):
         Ustawia tytuł okna i inicjuje interfejs użytkownika.
         """
         super(MainWindow, self).__init__("Main Window")
-        self.set_ui()
+        self.main_window_list = MainWindowList(self)
+        self.init_ui()
 
-    def set_ui(self):
+    def init_ui(self):
         """
         Ustawia interfejs użytkownika dla głównego okna.
 
@@ -42,16 +43,6 @@ class MainWindow(Window):
         self.text_edit = QLineEdit()
         self.layout.addWidget(self.text_edit)
 
-        # Lista opcji
-        self.list_widget = QListWidget()
-        self.list_widget.addItems(["Option 1", "Option 2", "Option 3", "Option 4"])
-        self.list_widget.itemSelectionChanged.connect(self.on_item_selected)
-        self.layout.addWidget(self.list_widget)
+        # Lista opcji wyświetlana w oknie
+        self.main_window_list.init_list_widget()
 
-    def on_item_selected(self):
-        """
-        Obsługuje zdarzenie wyboru elementu z listy.
-
-        Ustawia tekst pola do wprowadzania tekstu na wybrany element z listy.
-        """
-        self.text_edit.setText(self.list_widget.currentItem().text())

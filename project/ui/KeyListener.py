@@ -10,8 +10,6 @@ class KeyListener(QObject):
     Klasa `KeyListener` reprezentuje obiekt do nasłuchiwania klawiatury
     i emitowania sygnałów w przypadku naciśnięcia odpowiednich skrótów.
     """
-    # Sygnał emitowany przy naciśnięciu odpowiedniego skrótu
-    key_pressed = pyqtSignal(str)
 
     def __init__(self,clipboard_manager):
         """
@@ -40,10 +38,7 @@ class KeyListener(QObject):
     def on_press(self, key):
         """
         Obsługuje zdarzenie naciśnięcia klawisza.
-        
-        Sprawdza, czy naciśnięty klawisz odpowiada któremuś z zdefiniowanych skrótów.
-        Jeśli tak, emituje sygnał `key_pressed` z zaznaczonym tekstem.
-        
+  
         :param key: Obiekt reprezentujący naciśnięty klawisz.
         """
         try:
@@ -67,7 +62,7 @@ class KeyListener(QObject):
         self.selected_text = pyperclip.paste() # Pobierz zaznaczony tekst
 
         if(self.is_valid_path(self.selected_text)):
-            self.clipboard_manager.addToDatabase(self.selected_text)
+            self.clipboard_manager.add_to_database(self.selected_text)
         else:
             print("Niepoprawna ścieżka pliku : ", self.selected_text)
 
