@@ -1,9 +1,10 @@
 from PyQt5.QtWidgets import QListWidget # pylint: disable = no-name-in-module
 
 class MainWindowList:
-    def __init__(self, parent):
+    def __init__(self, parent,main_window_line_edit):
         self.parent = parent
         self.list_widget = QListWidget()
+        self.line_edit = main_window_line_edit
        
 
     def init_list_widget(self,new_items = []):
@@ -13,7 +14,7 @@ class MainWindowList:
         self.parent.layout.addWidget(self.list_widget)
 
         if(len(new_items) > 0):
-           self.parent.text_edit.setText(new_items[0])
+           self.line_edit.set_text(new_items[0])
 
     def refresh_list_widget(self, new_items):
         # Usunięcie istniejących elementów
@@ -37,4 +38,4 @@ class MainWindowList:
 
         Ustawia tekst pola do wprowadzania tekstu na wybrany element z listy.
         """
-        self.parent.text_edit.setText(self.list_widget.currentItem().text())
+        self.line_edit.set_text(self.list_widget.currentItem().text())
