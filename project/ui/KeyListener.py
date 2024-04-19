@@ -1,3 +1,4 @@
+import re
 import time
 import pyperclip
 from pynput import keyboard
@@ -65,10 +66,22 @@ class KeyListener(QObject):
             time.sleep(COPY_DELAY) # Poczekaj 0.1 sekundy aby poprawnie skopiować tekst
         self.selected_text = pyperclip.paste() # Pobierz zaznaczony tekst
 
-        self.clipboard_manager.checkIsInDatabase(self.selected_text)
+        if(self.is_valid_path(self.selected_text)):
+            self.clipboard_manager.addToDatabase(self.selected_text)
+        else:
+            print("Niepoprawna ścieżka pliku : ", self.selected_text)
+
 
     def on_paste(self):
         """
         Funkcja wywoływana podczas naciśnięcia skrótu 'paste' (ctrl + v).    
         """
         pass
+   
+    def is_valid_path(self,path):
+        """
+        Sprawdza czy ścieżka pliku jest mniej więcej poprawna.
+        """
+        regex = r'^.*[\\/]+.*$'
+        # Sprawdź czy podany path pasuje do regexa
+        return re.match(regex, path) is not None
