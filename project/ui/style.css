@@ -1,0 +1,59 @@
+/* style.css */
+
+/* style.css */
+
+QLineEdit {
+    background-color: lightblue;
+    color: black;
+    border: 2px solid gray;
+    padding: 10px;
+
+    font-size: 14px; /* Rozmiar czcionki */
+}
+
+QLineEdit:hover {
+    border: 2px solid blue;
+     width: 200px; /* Responsywna szerokość */
+}
+
+QLineEdit::placeholder {
+    color: gray;
+     width: 200px; /* Responsywna szerokość */
+
+}
+
+
+
+/* Style for the QList */
+
+/* style.css */
+
+QListWidget {
+    background-color: #FFFFFF; /* Kolor tła listy */
+    border: 1px solid #CCCCCC; /* Grubość i kolor obramowania listy */
+    padding: 7px; /* Wewnętrzny odstęp (padding) listy */
+    font-family: Arial, sans-serif; /* Rodzina czcionek dla listy */
+    font-size: 14px; /* Rozmiar czcionki dla listy */
+     max-width: 500px; /* Maksymalna szerokość dla elementów listy */
+}
+
+QListWidget::item {
+    padding: 8px; /* Wewnętrzny odstęp (padding) dla elementów listy */
+    margin-bottom: 8px; /* Większy odstęp między elementami listy */
+    border: 1px solid #9e9e9e; /* Grubość i kolor obramowania elementów listy */
+    
+}
+
+QListWidget::item:hover {
+    background-color: #F0F0F0; /* Kolor tła dla efektu hover */
+}
+
+QListWidget::item:selected {
+    background-color: #4a5664; /* Kolor tła dla zaznaczonego elementu */
+    color: white; /* Kolor tekstu dla zaznaczonego elementu */
+
+}
+
+
+/*QVBoxLayout()
+

@@ -27,22 +27,6 @@ class Window(QWidget):
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
-    def switch_window(self, window_instance_to_show, window_instance_to_hide):
-        """
-        Przełącza między oknami.
-
-        Args:
-            window_instance_to_show (QWidget): Instancja okna do pokazania.
-            window_instance_to_hide (QWidget): Instancja okna do ukrycia.
-        """
-        # Ustawienie minimalnego rozmiaru okna
-        window_instance_to_hide.setMinimumSize(self.size())
-        window_instance_to_show.setMinimumSize(self.size())
-
-        # Ukrycie bieżącego okna i pokazanie nowego okna
-        window_instance_to_show.show()
-        window_instance_to_hide.hide()
-
     def closeEvent(self, event): # pylint: disable=invalid-name
         """
         Obsługuje zdarzenie zamykania okna.

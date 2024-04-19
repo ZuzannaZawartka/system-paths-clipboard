@@ -1,6 +1,8 @@
 from .Window import Window
-from .MainWindowList import MainWindowList # pylint: disable = no-name-in-module
-from .MainWindowLineEdit import MainWindowLineEdit # pylint: disable = no-name-in-module
+from .List import List # pylint: disable = no-name-in-module
+from .LineEdit import LineEdit # pylint: disable = no-name-in-module
+from .Button import Button # pylint: disable = no-name-in-module
+from PyQt5.QtWidgets import QWidget,QPushButton,QVBoxLayout,QHBoxLayout # pylint: disable = no-name-in-module
 
 class MainWindow(Window):
     """
@@ -22,8 +24,9 @@ class MainWindow(Window):
         Ustawia tytuł okna i inicjuje interfejs użytkownika.
         """
         super(MainWindow, self).__init__("Main Window")
-        self.main_window_line_edit = MainWindowLineEdit(self)
-        self.main_window_list = MainWindowList(self,self.main_window_line_edit)
+        self.line_edit = LineEdit(self)
+        self.list = List(self,self.line_edit)
+        self.save_button = Button(self,"save")
     
         self.init_ui()
 
@@ -32,11 +35,24 @@ class MainWindow(Window):
         Ustawia interfejs użytkownika dla głównego okna.
 
         """
-        # Lista opcji wyświetlana w oknie
-        self.main_window_line_edit.init_line_edit()
+        # Tworzenie układu poziomego dla QLineEdit i QPushButton
+        self.horizontal_layout = QHBoxLayout()
+
 
         # Lista opcji wyświetlana w oknie
-        self.main_window_list.init_list_widget()
+        self.line_edit.init_line_edit()
+        self.horizontal_layout.addWidget(self.line_edit.text_edit)
+
+        # Przycisk
+        self.button = QPushButton("Przycisk")
+        self.horizontal_layout.addWidget(self.button)
+    
+        # Dodanie układu poziomego do układu pionowego
+        self.layout.addLayout(self.horizontal_layout)
+
+        #Inicjalizajca listy opcji wyświetlana w oknie
+        self.list.init_list_widget()
+
 
 
     

@@ -5,7 +5,7 @@ class ClipboardManager:
         self.clipboard = None
         self.window_manager = window_manager
         self.main_window = self.window_manager.main_window
-        self.main_window_list = self.main_window.main_window_list
+        self.list = self.main_window.list
         self.database_manager = DatabaseManager()
 
         self.on_init_fetch_data_from_database_to_ui()
@@ -16,7 +16,7 @@ class ClipboardManager:
             Funkcja odpowiada za pobranie danych z bazy danych i zainicjalizowanie listy w oknie głównym.
         """
         data = self.database_manager.get_all_data() # Pobranie wszystkich danych z bazy danych
-        self.main_window_list.init_list_widget(data) # Inicjalizacja listy w oknie głównym
+        self.list.init_list_widget(data) # Inicjalizacja listy w oknie głównym
 
     def add_to_database(self, clipboard):
         """
@@ -38,11 +38,11 @@ class ClipboardManager:
             self.database_manager.delete_data(self.clipboard)
             self.database_manager.add_data(self.clipboard)
             data = self.database_manager.get_all_data()
-            self.main_window_list.refresh_list_widget(data)
+            self.list.refresh_list_widget(data)
         else:
             self.database_manager.add_data(self.clipboard)
             data = self.database_manager.get_last_data()
-            self.main_window_list.add_item_to_list_widget(data)
+            self.list.add_item_to_list_widget(data)
         
 
     def getAllDataFromDatabase(self):

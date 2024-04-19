@@ -26,10 +26,13 @@ class WindowManager:
         """
         Inicjalizacja `WindowManager`.
         """
+        
         self.app = QApplication(sys.argv)
         self.init_windows()
         self.init_ui()
         self.init_tray()
+
+       
 
     def init_ui(self):
         """
@@ -88,6 +91,7 @@ class WindowManager:
                     self.main_window.showNormal()
                 else:
                     self.main_window.hide()
+
 
     def run(self):
         """

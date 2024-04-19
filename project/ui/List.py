@@ -1,7 +1,9 @@
 from PyQt5.QtWidgets import QListWidget # pylint: disable = no-name-in-module
+from .WidgetElement import WidgetElement
+class List(WidgetElement):
 
-class MainWindowList:
     def __init__(self, parent,main_window_line_edit):
+        super().__init__(parent)
         self.parent = parent
         self.list_widget = QListWidget()
         self.line_edit = main_window_line_edit
@@ -12,6 +14,7 @@ class MainWindowList:
         self.list_widget.addItems(new_items)
         self.list_widget.itemSelectionChanged.connect(self.on_item_selected)
         self.parent.layout.addWidget(self.list_widget)
+        self.load_stylesheet(self.list_widget)
 
         if(len(new_items) > 0):
            self.line_edit.set_text(new_items[0])
