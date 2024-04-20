@@ -13,7 +13,7 @@ class List(WidgetElement):
 
         self.list_widget.addItems(new_items)
         self.list_widget.itemSelectionChanged.connect(self.on_item_selected)
-        self.parent.layout.addWidget(self.list_widget)
+        # self.parent.layout.addWidget(self.list_widget)
         self.load_stylesheet(self.list_widget)
 
         if(len(new_items) > 0):
@@ -41,4 +41,7 @@ class List(WidgetElement):
 
         Ustawia tekst pola do wprowadzania tekstu na wybrany element z listy.
         """
-        self.line_edit.set_text(self.list_widget.currentItem().text())
+        value = self.list_widget.currentItem().text()
+        self.line_edit.set_text(value)
+        self.parent.set_current_selected_item(value)
+        

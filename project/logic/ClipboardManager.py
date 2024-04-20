@@ -2,6 +2,17 @@ from data.DatabaseManager import DatabaseManager
 from ui.MainWindow import MainWindow #singleton pattern
 
 class ClipboardManager:
+
+    _instance = None
+
+    @classmethod
+    def get_instance(cls):
+        """
+        Zwraca instancję singletona.
+        """
+        if cls._instance is None:
+            cls._instance = cls()
+        return cls._instance
   
     def __init__(self):
         self.clipboard = None
@@ -48,7 +59,7 @@ class ClipboardManager:
         
 
     def getAllDataFromDatabase(self):
-        pass
+        print("doszło super")
 
 
     
