@@ -1,10 +1,12 @@
 from data.DatabaseManager import DatabaseManager
+from ui.MainWindow import MainWindow #singleton pattern
 
 class ClipboardManager:
-    def __init__(self,window_manager):
+  
+    def __init__(self):
         self.clipboard = None
-        self.window_manager = window_manager
-        self.main_window = self.window_manager.main_window
+        
+        self.main_window = MainWindow.get_instance()
         self.list = self.main_window.list
         self.database_manager = DatabaseManager()
 
