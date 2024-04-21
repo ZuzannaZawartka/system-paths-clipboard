@@ -1,7 +1,7 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout # pylint: disable = no-name-in-module
+from PyQt5.QtWidgets import QWidget, QVBoxLayout  # pylint: disable = no-name-in-module
 import os
 import sys
-from PyQt5.QtCore import Qt # pylint: disable = no-name-in-module
+from PyQt5.QtCore import Qt  # pylint: disable = no-name-in-module
 from PyQt5.QtGui import QIcon  # pylint: disable = no-name-in-module
 from PyQt5.QtCore import QSize  # pylint: disable = no-name-in-module
 from PyQt5.QtWidgets import (  # pylint: disable = no-name-in-module
@@ -10,7 +10,8 @@ from PyQt5.QtWidgets import (  # pylint: disable = no-name-in-module
     QMenu,
     QSystemTrayIcon,
 )
-from constants import WINDOW_HEIGHT,WINDOW_WIDTH,DIFFERENCE_FROM_BOTTOM
+from constants import WINDOW_HEIGHT, WINDOW_WIDTH, DIFFERENCE_FROM_BOTTOM
+
 
 class Window(QWidget):
     """
@@ -34,6 +35,7 @@ class Window(QWidget):
         self.app = QApplication(sys.argv)
 
         # Ustawienie tytułu okna
+        self.title = title
         self.setWindowTitle(title)
         self.init_tray()
         self.init_window()
@@ -42,8 +44,6 @@ class Window(QWidget):
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
-
-    
     def init_window(self):
         """
         Inicjalizacja głównego okna aplikacji.
@@ -52,16 +52,18 @@ class Window(QWidget):
 
         self.desktop = QApplication.desktop()
         self.screen_rect = self.desktop.screenGeometry()
-        self.screen_width, self.screen_height = self.screen_rect.width(), self.screen_rect.height()
+        self.screen_width, self.screen_height = (
+            self.screen_rect.width(),
+            self.screen_rect.height(),
+        )
 
-        self.initial_x = self.screen_width - WINDOW_WIDTH 
-        self.initial_y = self.screen_height - WINDOW_HEIGHT - DIFFERENCE_FROM_BOTTOM 
-
+        self.initial_x = self.screen_width - WINDOW_WIDTH
+        self.initial_y = self.screen_height - WINDOW_HEIGHT - DIFFERENCE_FROM_BOTTOM
 
         self.setGeometry(self.initial_x, self.initial_y, WINDOW_WIDTH, WINDOW_HEIGHT)
-        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint) # Usunięcie ramki okna, i zablokowanie przesuwania okna
-
-
+        self.setWindowFlags(
+            self.windowFlags() | Qt.FramelessWindowHint
+        )  # Usunięcie ramki okna, i zablokowanie przesuwania okna
 
     def init_tray(self):
         """
@@ -69,7 +71,7 @@ class Window(QWidget):
         """
         # Utwórz akcję dla opcji "Exit"
         exit_action = QAction("Exit", self.app)
-        exit_action.triggered.connect(self.close)
+        exit_action.triggered.connect(self.close_app_by_exit)
 
         # Utwórz menu dla ikony zasobnika systemowego
         self.tray_menu = QMenu()
@@ -86,7 +88,7 @@ class Window(QWidget):
 
         # Utwórz ikonę zasobnika systemowego
         self.tray_icon = QSystemTrayIcon(QIcon(icon_path), self.app)
-        self.tray_icon.setToolTip("My Tray App")
+        self.tray_icon.setToolTip(self.title)
         self.tray_icon.setContextMenu(self.tray_menu)
         self.tray_icon.activated.connect(self.on_tray_click)
 
@@ -100,23 +102,21 @@ class Window(QWidget):
         Args:
             reason (QSystemTrayIcon.ActivationReason): Powód aktywacji ikony.
         """
-        
+
         if reason != QSystemTrayIcon.Context:
             if self.isHidden():
                 self.show()
             else:
                 if self.isMinimized():
-                    self.showNormal()#moze wymagac dodania activateWindow() jesli bysmy chcieli mnimalizowac
+                    self.showNormal()  # moze wymagac dodania activateWindow() jesli bysmy chcieli mnimalizowac
                 else:
                     self.hide()
-
 
     def showEvent(self, event):
         super().showEvent(event)
         self.activateWindow()
 
-
-    def closeEvent(self, event): # pylint: disable=invalid-name
+    def closeEvent(self, event):  # pylint: disable=invalid-name
         """
         Obsługuje zdarzenie zamykania okna.
 
@@ -126,4 +126,10 @@ class Window(QWidget):
         event.ignore()  # Ignoruj domyślną obsługę zdarzenia zamykania
         self.hide()  # Ukryj okno, zamiast zamykać je
 
+    def close_app_by_exit(self):
+        """
+        Zamknięcie aplikacji na klikniecie exit.
 
+        Zatrzymuje aplikację, ale nie wychodzi z `app.exec_()`.
+        """
+        self.app.quit()

@@ -1,9 +1,9 @@
-from PyQt5.QtWidgets import QCheckBox # pylint: disable = no-name-in-module
+from PyQt5.QtWidgets import QCheckBox  # pylint: disable = no-name-in-module
 from .WidgetElement import WidgetElement
 
 
 class Checkbox(WidgetElement):
-    def __init__(self, parent,text):
+    def __init__(self, parent, text="Save as new path"):
         super().__init__(parent)
         self.parent = parent
         self.text = text
@@ -12,15 +12,13 @@ class Checkbox(WidgetElement):
 
         self.init_checkbox()
 
-
     def init_checkbox(self):
         # Przycisk
         self.checkbox.setText(self.text)
-        self.checkbox.setChecked(self.is_checked) 
-        self.checkbox.setObjectName(self.text) 
+        self.checkbox.setChecked(self.is_checked)
+        self.checkbox.setObjectName(self.text)
         self.checkbox.clicked.connect(self.on_change_checkbox)
         self.load_stylesheet(self.checkbox)
-
 
     def on_change_checkbox(self):
         if self.checkbox.isChecked():
@@ -31,7 +29,7 @@ class Checkbox(WidgetElement):
             print(f"Checkbox '{self.text}' is unchecked")
             # Perform actions when checkbox is unchecked
             # Example: self.parent.line_edit.setPlaceholderText("")
-        
+
         self.is_checked = self.checkbox.isChecked()
 
     def get_checkbox_value(self):
