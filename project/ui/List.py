@@ -24,7 +24,7 @@ class List(WidgetElement):
         self.load_stylesheet(self.list_widget)
 
         if(len(new_items) > 0):
-           self.line_edit.set_text(new_items[0])
+           self.parent.set_current_selected_item(new_items[0])
 
 
         # W momencie gdy dojdzie do zmiany danych w bazie danych, lista w oknie głównym zostaje zaktualizowana
@@ -37,6 +37,8 @@ class List(WidgetElement):
 
         # Dodanie nowych elementów
         self.list_widget.addItems(new_items)
+
+        self.parent.set_current_selected_item(new_items[0])
 
         self.list_widget.itemSelectionChanged.connect(self.on_item_selected)
 
@@ -55,6 +57,5 @@ class List(WidgetElement):
         Ustawia tekst pola do wprowadzania tekstu na wybrany element z listy.
         """
         value = self.list_widget.currentItem().text()
-        self.line_edit.set_text(value)
         self.parent.set_current_selected_item(value)
         

@@ -1,7 +1,8 @@
+from ui.SaveButton import SaveButton
+from ui.DeleteButton import DeleteButton
 from .Window import Window
 from .List import List # pylint: disable = no-name-in-module
 from .LineEdit import LineEdit # pylint: disable = no-name-in-module
-from .Button import Button # pylint: disable = no-name-in-module
 from PyQt5.QtCore import Qt # pylint: disable = no-name-in-module
 from PyQt5.QtWidgets import QWidget,QPushButton,QVBoxLayout,QHBoxLayout,QCheckBox # pylint: disable = no-name-in-module
 
@@ -29,8 +30,8 @@ class MainWindow(Window):
 
         self.line_edit = LineEdit(self)
         self.list = List(self,self.line_edit)
-        self.save_button = Button(self,"save")
-        self.delete_button = Button(self,"delete")
+        self.save_button = SaveButton(self,"save")
+        self.delete_button = DeleteButton(self,"delete")
     
         self.init_ui()
 
@@ -86,3 +87,10 @@ class MainWindow(Window):
         Ustawia aktualnie wybrany element z listy.
         """
         self.current_selected_item = value
+        self.line_edit.set_text(self.current_selected_item)
+
+    def get_current_selected_item(self):
+        """
+        Zwraca aktualnie wybrany element z listy.
+        """
+        return self.current_selected_item

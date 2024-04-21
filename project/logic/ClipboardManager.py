@@ -31,7 +31,7 @@ class ClipboardManager(QObject):
         data = self.database_manager.get_all_data() # Pobranie wszystkich danych z bazy danych
         return data
 
-    def add_to_database(self, clipboard):
+    def add_to_database(self, value):
         """
             Funkcja odpowiada za kontakt z bazą danych.
 
@@ -45,7 +45,7 @@ class ClipboardManager(QObject):
 
             :param clipboard: Tekst zapisany w schowku.
         """
-        self.clipboard = clipboard # Przypisanie wartości do zmiennej clipboard   
+        self.clipboard = value # Przypisanie wartości do zmiennej clipboard   
 
         if(self.database_manager.check_if_exists(self.clipboard)):
             self.database_manager.delete_data(self.clipboard)
@@ -63,5 +63,18 @@ class ClipboardManager(QObject):
     def getAllDataFromDatabase(self):
         print("doszło super")
 
+
+    def delete_from_database(self,value):
+        """
+            Funkcja odpowiada za kontakt z bazą danych.
+
+            Usuwa wartość z bazy danych.
+            Wywoluje zmiane danych na liście w oknie głównym.
+
+            :param value: Tekst zapisany w schowku.
+        """
+        self.database_manager.delete_data(value)
+        data = self.database_manager.get_all_data()
+        self.all_list_updated.emit(data)
 
     

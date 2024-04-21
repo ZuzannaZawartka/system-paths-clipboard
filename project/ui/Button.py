@@ -7,19 +7,12 @@ class Button(WidgetElement):
         super().__init__(parent)
         self.parent = parent
         self.text = text
-      
-        self.init_button()
-
-    def init_button(self):
-        # Przycisk
         self.button = QPushButton(self.text)
+
+    def init_button(self,function):
+        # Przycisk
         self.button.setText(self.text)
         self.button.setObjectName(self.text) 
-        self.button.clicked.connect(self.save_button)
+        self.button.clicked.connect(function)
         # self.parent.layout.addWidget(self.button)
         self.load_stylesheet(self.button)
-
-    def save_button(self):
-        print("Button clicked")
-        self.parent.clipboard_manager.getAllDataFromDatabase()
-        # self.clipboard_manager.getAllDataFromDatabase()
