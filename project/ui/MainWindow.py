@@ -2,8 +2,10 @@ from .Window import Window
 from .List import List # pylint: disable = no-name-in-module
 from .LineEdit import LineEdit # pylint: disable = no-name-in-module
 from .Button import Button # pylint: disable = no-name-in-module
-from PyQt5.QtWidgets import QWidget,QPushButton,QVBoxLayout,QHBoxLayout,QCheckBox # pylint: disable = no-name-in-module
 from PyQt5.QtCore import Qt # pylint: disable = no-name-in-module
+from PyQt5.QtWidgets import QWidget,QPushButton,QVBoxLayout,QHBoxLayout,QCheckBox # pylint: disable = no-name-in-module
+
+
 
 class MainWindow(Window):
     """
@@ -17,28 +19,14 @@ class MainWindow(Window):
         text_edit (QLineEdit): Pole do wprowadzania tekstu.
         list_widget (QListWidget): Lista opcji wyświetlana w oknie.
     """
-
-    _instance = None  # Przechowuje instancję singletona
-
-    @classmethod
-    def get_instance(cls):
-        """
-        Zwraca instancję singletona.
-        """
-        if cls._instance is None:
-            cls._instance = cls()
-        return cls._instance
-
     def __init__(self):
         """
         Inicjalizacja głównego okna (`MainWindow`).
 
         Ustawia tytuł okna i inicjuje interfejs użytkownika.
         """
-        if MainWindow._instance is not None:
-            raise Exception("This class is a singleton!")
-
         super(MainWindow, self).__init__("Main Window")
+
         self.line_edit = LineEdit(self)
         self.list = List(self,self.line_edit)
         self.save_button = Button(self,"save")
@@ -47,8 +35,6 @@ class MainWindow(Window):
         self.init_ui()
 
         self.current_selected_item = None # Przechowuje aktualnie wybrany element z listy
-
-        MainWindow._instance = self # Przypisanie instancji do zmiennej klasy
 
     def init_ui(self):
         """
@@ -63,7 +49,6 @@ class MainWindow(Window):
 
 
         # Lista opcji wyświetlana w oknie
-        self.line_edit.init_line_edit()
         self.horizontal_layout.addWidget(self.line_edit.text_edit)
 
         # Przycisk
@@ -85,7 +70,6 @@ class MainWindow(Window):
         self.horizontal_layout2 = QHBoxLayout()
 
         #Inicjalizajca listy opcji wyświetlana w oknie
-        self.list.init_list_widget()
         self.horizontal_layout2.addWidget(self.list.list_widget)
 
         # Przycisk

@@ -19,7 +19,7 @@ class AppManager:
         """
         self.window_manager = WindowManager()
         self.clipboard_manager = ClipboardManager()
-        self.key_listener = KeyListener(self.clipboard_manager)
+        self.key_listener = KeyListener()
 
     def run(self):
         """

@@ -21,4 +21,5 @@ class Button(WidgetElement):
 
     def save_button(self):
         print("Button clicked")
+        self.parent.clipboard_manager.getAllDataFromDatabase()
         # self.clipboard_manager.getAllDataFromDatabase()

@@ -1,10 +1,13 @@
 from data.DatabaseManager import DatabaseManager
-from ui.MainWindow import MainWindow #singleton pattern
+from PyQt5.QtCore import pyqtSignal,QObject # pylint: disable = no-name-in-module
 
-class ClipboardManager:
+class ClipboardManager(QObject):
 
     _instance = None
 
+    all_list_updated = pyqtSignal(object)
+    one_element_list_updated = pyqtSignal(object)
+ 
     @classmethod
     def get_instance(cls):
         """
@@ -15,13 +18,10 @@ class ClipboardManager:
         return cls._instance
   
     def __init__(self):
-        self.clipboard = None
+        super().__init__()
         
-        self.main_window = MainWindow.get_instance()
-        self.list = self.main_window.list
+        self.clipboard = None
         self.database_manager = DatabaseManager()
-
-        self.on_init_fetch_data_from_database_to_ui()
 
 
     def on_init_fetch_data_from_database_to_ui(self):
@@ -29,7 +29,7 @@ class ClipboardManager:
             Funkcja odpowiada za pobranie danych z bazy danych i zainicjalizowanie listy w oknie głównym.
         """
         data = self.database_manager.get_all_data() # Pobranie wszystkich danych z bazy danych
-        self.list.init_list_widget(data) # Inicjalizacja listy w oknie głównym
+        return data
 
     def add_to_database(self, clipboard):
         """
@@ -51,11 +51,13 @@ class ClipboardManager:
             self.database_manager.delete_data(self.clipboard)
             self.database_manager.add_data(self.clipboard)
             data = self.database_manager.get_all_data()
-            self.list.refresh_list_widget(data)
+
+            self.all_list_updated.emit(data)
         else:
             self.database_manager.add_data(self.clipboard)
             data = self.database_manager.get_last_data()
-            self.list.add_item_to_list_widget(data)
+
+            self.one_element_list_updated.emit(data)
         
 
     def getAllDataFromDatabase(self):
