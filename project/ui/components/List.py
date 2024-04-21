@@ -38,7 +38,10 @@ class List(WidgetElement):
         # Dodanie nowych elementów
         self.list_widget.addItems(new_items)
 
-        self.parent.set_current_selected_item(new_items[0])
+        if(len(new_items) > 0):
+            self.parent.set_current_selected_item(new_items[0])
+        elif(len(new_items) == 0):
+            self.parent.set_current_selected_item("")
 
         self.list_widget.itemSelectionChanged.connect(self.on_item_selected)
 
@@ -48,6 +51,8 @@ class List(WidgetElement):
 
         # Połączenie sygnału zmiany wyboru elementu
         self.list_widget.itemSelectionChanged.connect(self.on_item_selected)
+
+        self.parent.set_current_selected_item(new_item)
 
 
     def on_item_selected(self):

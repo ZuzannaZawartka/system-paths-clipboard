@@ -1,4 +1,4 @@
-from ui.Button import Button
+from .Button import Button
 
 class SaveButton(Button):
     def __init__(self, parent,text):

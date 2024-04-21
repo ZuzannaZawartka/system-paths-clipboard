@@ -60,10 +60,6 @@ class ClipboardManager(QObject):
             self.one_element_list_updated.emit(data)
         
 
-    def getAllDataFromDatabase(self):
-        print("doszło super")
-
-
     def delete_from_database(self,value):
         """
             Funkcja odpowiada za kontakt z bazą danych.
@@ -73,8 +69,15 @@ class ClipboardManager(QObject):
 
             :param value: Tekst zapisany w schowku.
         """
-        self.database_manager.delete_data(value)
-        data = self.database_manager.get_all_data()
-        self.all_list_updated.emit(data)
+        
+        if(self.database_manager.check_if_exists(value)):
+            self.database_manager.delete_data(value)
+            data = self.database_manager.get_all_data()
+            self.all_list_updated.emit(data)
+        else:
+            print("Nie ma takiego elementu w bazie danych")
+        
+
+       
 
     

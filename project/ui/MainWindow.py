@@ -1,11 +1,11 @@
-from ui.SaveButton import SaveButton
-from ui.DeleteButton import DeleteButton
-from .Window import Window
-from .List import List # pylint: disable = no-name-in-module
-from .LineEdit import LineEdit # pylint: disable = no-name-in-module
+from ui.components.SaveButton import SaveButton
+from ui.components.DeleteButton import DeleteButton
+from ui.components.Checkbox import Checkbox
+from ui.components.List import List # pylint: disable = no-name-in-module
+from ui.components.LineEdit import LineEdit # pylint: disable = no-name-in-module
 from PyQt5.QtCore import Qt # pylint: disable = no-name-in-module
 from PyQt5.QtWidgets import QWidget,QPushButton,QVBoxLayout,QHBoxLayout,QCheckBox # pylint: disable = no-name-in-module
-
+from .Window import Window
 
 
 class MainWindow(Window):
@@ -32,6 +32,7 @@ class MainWindow(Window):
         self.list = List(self,self.line_edit)
         self.save_button = SaveButton(self,"save")
         self.delete_button = DeleteButton(self,"delete")
+        self.checkbox = Checkbox(self,"Save as new path")
     
         self.init_ui()
 
@@ -61,9 +62,8 @@ class MainWindow(Window):
 
 
         ##sektor 2 , checkbox , input na number ile ma byc wyświetlanych pozycji
-        checkbox = QCheckBox('Opcja 1')
-        checkbox.setChecked(True)  # Ustawienie stanu początkowego
-        self.layout.addWidget(checkbox)
+        
+        self.layout.addWidget(self.checkbox.checkbox)
         
        
         # sektor 2 , lista i obok przycisk usuwania

@@ -1,4 +1,4 @@
-from ui.Button import Button
+from ui.components.Button import Button
 from logic.ClipboardManager import ClipboardManager
 
 class DeleteButton(Button):

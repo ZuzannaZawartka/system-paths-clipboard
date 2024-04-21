@@ -41,6 +41,7 @@ class DatabaseManager:
 
         query = "SELECT value FROM clipboard ORDER BY id DESC LIMIT ?"
         cursor = self.execute_query(query, limit)
+        
         return [row[0] for row in cursor.fetchall()]
 
     def get_last_data(self):
