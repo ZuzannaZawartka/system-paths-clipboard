@@ -60,6 +60,7 @@ class ClipboardManager(QObject):
             self.one_element_list_updated.emit(data)
         
 
+
     def delete_from_database(self,value):
         """
             Funkcja odpowiada za kontakt z bazą danych.
@@ -80,4 +81,20 @@ class ClipboardManager(QObject):
 
        
 
-    
+    def update_database(self,old_value,new_value):
+        """
+            Funkcja odpowiada za kontakt z bazą danych.
+
+            Aktualizuje wartość w bazie danych.
+            Wywoluje zmiane danych na liście w oknie głównym.
+
+            :param old_value: Stara wartość
+            :param new_value: Nowa wartość
+        """
+        if(self.database_manager.check_if_exists(old_value)):
+            self.database_manager.update_data(old_value,new_value)
+            data = self.database_manager.get_all_data()
+            self.all_list_updated.emit(data)
+        else:
+            print("Nie ma takiego elementu w bazie danych")
+

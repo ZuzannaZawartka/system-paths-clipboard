@@ -17,3 +17,5 @@ class LineEdit(WidgetElement):
     def set_text(self,text):
         self.text_edit.setText(text)
 
+    def get_text(self):
+        return self.text_edit.text()

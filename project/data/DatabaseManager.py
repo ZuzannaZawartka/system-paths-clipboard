@@ -31,6 +31,16 @@ class DatabaseManager:
         query = "INSERT INTO clipboard (value) VALUES (?)"
         self.execute_query(query, value)
 
+    def update_data(self, old_value, new_value):
+        """
+            Funkcja aktualizuje wartość w bazie danych.
+
+            :param old_value: wartość do zaktualizowania
+            :param new_value: nowa wartość
+        """
+        query = "UPDATE clipboard SET value = ? WHERE value = ?"
+        self.execute_query(query, new_value, old_value)
+
     def get_all_data(self, limit=10):
         """
             Funkcja zwraca wszystkie wartości z bazy danych
@@ -68,6 +78,8 @@ class DatabaseManager:
         """
         query = "DELETE FROM clipboard WHERE value = ?"
         self.execute_query(query, value)
+
+    
 
 
 #testy

@@ -7,7 +7,7 @@ class Checkbox(WidgetElement):
         super().__init__(parent)
         self.parent = parent
         self.text = text
-        self.is_checked = False
+        self.is_checked = True
         self.checkbox = QCheckBox()
 
         self.init_checkbox()
@@ -33,3 +33,6 @@ class Checkbox(WidgetElement):
             # Example: self.parent.line_edit.setPlaceholderText("")
         
         self.is_checked = self.checkbox.isChecked()
+
+    def get_checkbox_value(self):
+        return self.is_checked

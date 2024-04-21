@@ -57,21 +57,21 @@ QListWidget::item:selected {
 
 /* Style for the QPushButton */
 #save {
-    background-color: red;
+    background-color: rgb(48, 78, 72);
     color: white;
     font-size: 16px;
     padding: 8px 16px;
-    border: 2px solid darkred;
+    border: 2px solid rgb(24, 32, 32);
     width: 150px;
 }
 
 #delete {
     display: none; /* Ukrycie przycisku */
-    background-color: green;
+    background-color: rgb(51, 50, 49);
     color: white;
     font-size: 16px;
     padding: 8px 16px;
-    border: 2px solid darkgreen;
+    border: 2px solid rgb(32, 32, 32);
     align-self: flex-start; /* Ustawienie przycisku na górze w układzie poziomym */
     width: 50px;
 }
