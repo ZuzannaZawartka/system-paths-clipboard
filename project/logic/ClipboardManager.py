@@ -92,7 +92,8 @@ class ClipboardManager(QObject):
             :param new_value: Nowa wartość
         """
         if(self.database_manager.check_if_exists(old_value)):
-            self.database_manager.update_data(old_value,new_value)
+            self.database_manager.delete_data(old_value)
+            self.database_manager.add_data(new_value)
             data = self.database_manager.get_all_data()
             self.all_list_updated.emit(data)
         else:

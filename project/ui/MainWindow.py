@@ -26,7 +26,7 @@ class MainWindow(Window):
 
         Ustawia tytuł okna i inicjuje interfejs użytkownika.
         """
-        super(MainWindow, self).__init__("Main Window")
+        super(MainWindow, self).__init__("Clipboard Manager")
 
         self.line_edit = LineEdit(self)
         self.list = List(self,self.line_edit)

@@ -20,3 +20,7 @@ DB_PATH = 'project\data\database.db'
 """
 Ścieżka do pliku bazy danych.
 """
+
+WINDOW_WIDTH = 800
+WINDOW_HEIGHT = 400
+DIFFERENCE_FROM_BOTTOM = 40

@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication # pylint: disable = no-name-in-module
-from ui.WindowManager import WindowManager
+from ui.MainWindow import MainWindow
 from ui.KeyListener import KeyListener
 from logic.ClipboardManager import ClipboardManager
 
@@ -17,7 +17,7 @@ class AppManager:
         """
         Inicjalizuje obiekt `AppManager`.
         """
-        self.window_manager = WindowManager()
+        self.main_window = MainWindow()
         self.clipboard_manager = ClipboardManager()
         self.key_listener = KeyListener()
 
@@ -28,7 +28,6 @@ class AppManager:
         Rozpoczyna nasłuchiwanie klawiatury i uruchamia główne okno aplikacji.
         """
         self.key_listener.start_listening()
-        self.window_manager.run()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
