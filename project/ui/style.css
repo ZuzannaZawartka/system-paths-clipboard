@@ -34,7 +34,7 @@ QListWidget {
     padding: 7px; /* Wewnętrzny odstęp (padding) listy */
     font-family: Arial, sans-serif; /* Rodzina czcionek dla listy */
     font-size: 14px; /* Rozmiar czcionki dla listy */
-     max-width: 500px; /* Maksymalna szerokość dla elementów listy */
+     max-width: 700px; /* Maksymalna szerokość dla elementów listy */
 }
 
 QListWidget::item {
@@ -55,5 +55,23 @@ QListWidget::item:selected {
 }
 
 
-/*QVBoxLayout()
+/* Style for the QPushButton */
+#save {
+    background-color: red;
+    color: white;
+    font-size: 16px;
+    padding: 8px 16px;
+    border: 2px solid darkred;
+    width: 150px;
+}
 
+#delete {
+    display: none; /* Ukrycie przycisku */
+    background-color: green;
+    color: white;
+    font-size: 16px;
+    padding: 8px 16px;
+    border: 2px solid darkgreen;
+    align-self: flex-start; /* Ustawienie przycisku na górze w układzie poziomym */
+    width: 50px;
+}

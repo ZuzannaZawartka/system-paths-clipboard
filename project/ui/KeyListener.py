@@ -1,6 +1,7 @@
 import re
 import time
 import pyperclip
+from logic.ClipboardManager import ClipboardManager
 from pynput import keyboard
 from constants import SHORTCUTS, COPY_DELAY
 from PyQt5.QtCore import QObject, pyqtSignal, QThread # pylint: disable = no-name-in-module
@@ -11,12 +12,12 @@ class KeyListener(QObject):
     i emitowania sygnałów w przypadku naciśnięcia odpowiednich skrótów.
     """
 
-    def __init__(self,clipboard_manager):
+    def __init__(self):
         """
         Inicjalizuje obiekt `KeyListener`.
         """
         super().__init__()
-        self.clipboard_manager = clipboard_manager
+        self.clipboard_manager = ClipboardManager.get_instance()
         self.selected_text = None
 
     def start_listening(self):
