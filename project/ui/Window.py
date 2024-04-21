@@ -100,16 +100,21 @@ class Window(QWidget):
         Args:
             reason (QSystemTrayIcon.ActivationReason): Powód aktywacji ikony.
         """
+        
         if reason != QSystemTrayIcon.Context:
             if self.isHidden():
                 self.show()
-                self.raise_()
             else:
                 if self.isMinimized():
-                    self.showNormal()
-                    self.raise_() # Przywrócenie okna na wierzch
+                    self.showNormal()#moze wymagac dodania activateWindow() jesli bysmy chcieli mnimalizowac
                 else:
                     self.hide()
+
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        self.activateWindow()
+
 
     def closeEvent(self, event): # pylint: disable=invalid-name
         """
