@@ -48,9 +48,10 @@ QListWidget::item:hover {
     background-color: #F0F0F0; /* Kolor tła dla efektu hover */
 }
 
-QListWidget::item:selected {
+
+ QListWidget::item:selected {
     background-color: #4a5664; /* Kolor tła dla zaznaczonego elementu */
-    color: white; /* Kolor tekstu dla zaznaczonego elementu */
+    color:white; /* Kolor tekstu dla zaznaczonego elementu */
 
 }
 

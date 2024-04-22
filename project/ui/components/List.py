@@ -1,19 +1,25 @@
-from logic.ClipboardManager import ClipboardManager # pylint: disable = no-name-in-module
-from PyQt5.QtWidgets import QListWidget # pylint: disable = no-name-in-module
+from logic.ClipboardManager import (
+    ClipboardManager,
+)  # pylint: disable = no-name-in-module
+from PyQt5.QtWidgets import QListWidget  # pylint: disable = no-name-in-module
 from .WidgetElement import WidgetElement
+from PyQt5.QtCore import pyqtSignal  # pylint: disable = no-name-in-module
+
 
 class List(WidgetElement):
+    item_selected = pyqtSignal(str)
 
-    def __init__(self, parent,main_window_line_edit):
+    def __init__(self, parent, main_window_line_edit):
         super().__init__(parent)
-        self.clipboard_manager = ClipboardManager.get_instance() # Pobranie instancji singletona
-        
+        self.clipboard_manager = (
+            ClipboardManager.get_instance()
+        )  # Pobranie instancji singletona
+
         self.parent = parent
         self.list_widget = QListWidget()
         self.line_edit = main_window_line_edit
 
         self.init_list_widget()
-       
 
     def init_list_widget(self):
 
@@ -23,29 +29,32 @@ class List(WidgetElement):
 
         self.load_stylesheet(self.list_widget)
 
-        if(len(new_items) > 0):
-           self.parent.set_current_selected_item(new_items[0])
-
+        if len(new_items) > 0:
+            self.parent.set_current_selected_item(new_items[0])
 
         # W momencie gdy dojdzie do zmiany danych w bazie danych, lista w oknie głównym zostaje zaktualizowana
         self.clipboard_manager.all_list_updated.connect(self.refresh_list_widget)
-        self.clipboard_manager.one_element_list_updated.connect(self.add_item_to_list_widget)
+        self.clipboard_manager.one_element_list_updated.connect(
+            self.add_item_to_list_widget
+        )
 
-    def refresh_list_widget(self,new_items):
+    def refresh_list_widget(self, new_items):
         # Usunięcie istniejących elementów
         self.list_widget.clear()
 
         # Dodanie nowych elementów
         self.list_widget.addItems(new_items)
 
-        if(len(new_items) > 0):
+        if len(new_items) > 0:
             self.parent.set_current_selected_item(new_items[0])
-        elif(len(new_items) == 0):
+        elif len(new_items) == 0:
             self.parent.set_current_selected_item("")
 
         self.list_widget.itemSelectionChanged.connect(self.on_item_selected)
 
-    def add_item_to_list_widget(self,new_item):
+        self.refresh_highlight_on_item_in_list()
+
+    def add_item_to_list_widget(self, new_item):
         # Dodanie nowego elementu na pozycję 0
         self.list_widget.insertItem(0, new_item)
 
@@ -54,6 +63,7 @@ class List(WidgetElement):
 
         self.parent.set_current_selected_item(new_item)
 
+        self.refresh_highlight_on_item_in_list()
 
     def on_item_selected(self):
         """
@@ -63,4 +73,9 @@ class List(WidgetElement):
         """
         value = self.list_widget.currentItem().text()
         self.parent.set_current_selected_item(value)
-        
+
+    def refresh_highlight_on_item_in_list(self):
+        """
+        Odświeża podświetlenie na liście.
+        """
+        self.list_widget.setCurrentRow(0)
