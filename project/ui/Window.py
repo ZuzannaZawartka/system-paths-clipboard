@@ -62,7 +62,7 @@ class Window(QWidget):
 
         self.setGeometry(self.initial_x, self.initial_y, WINDOW_WIDTH, WINDOW_HEIGHT)
         self.setWindowFlags(
-            self.windowFlags() | Qt.FramelessWindowHint
+            self.windowFlags() | Qt.FramelessWindowHint | Qt.Tool
         )  # Usunięcie ramki okna, i zablokowanie przesuwania okna
 
     def init_tray(self):
