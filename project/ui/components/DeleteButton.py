@@ -10,6 +10,5 @@ class DeleteButton(Button):
         self.init_button(self.on_delete_button)
 
     def on_delete_button(self):
-        print(self.parent.get_current_selected_item())
-        data = self.parent.get_current_selected_item()
+        data = self.clipboard_manager.get_selected_item()
         self.clipboard_manager.delete_from_database(data)

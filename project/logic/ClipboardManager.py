@@ -22,6 +22,10 @@ class ClipboardManager(QObject):
         super().__init__()
 
         self.clipboard = None
+        self.current_selected_item = (
+            None  # Przechowuje aktualnie wybrany element z listy
+        )
+
         self.database_manager = DatabaseManager()
 
     def on_init_fetch_data_from_database_to_ui(self):
@@ -99,3 +103,15 @@ class ClipboardManager(QObject):
             self.all_list_updated.emit(data)
         else:
             print("Nie ma takiego elementu w bazie danych")
+
+    def set_selected_item_in_clipboard(self, value):
+        """
+        Ustawia aktualnie wybrany element z listy.
+        """
+        self.current_selected_item = value
+
+    def get_selected_item(self):
+        """
+        Zwraca aktualnie wybrany element z listy.
+        """
+        return self.current_selected_item

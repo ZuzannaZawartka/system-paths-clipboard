@@ -11,7 +11,7 @@ class SaveButton(Button):
 
     def on_save_button(self):
         value = self.parent.line_edit.get_text()
-        new_value = self.parent.get_current_selected_item()
+        new_value = self.clipboard_manager.get_selected_item()
         # Zapisywanie do bazy danych jako nowy element
         if self.parent.checkbox.get_checkbox_value():
             self.clipboard_manager.add_to_database(value)

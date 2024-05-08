@@ -1,12 +1,12 @@
 SHORTCUTS = {
     "copy": "\x03",  # Skrót 'copy' (Ctrl+C)
-    "paste": "\x16",  # Skrót 'paste' (Ctrl+V)
+    "paste": "\x02",  # Skrót 'paste' (Ctrl+B)
 }
 """
 Słownik zawierający skróty klawiszowe do operacji kopiowania i wklejania.
 Klucze:
 - 'copy': '\x03' (Ctrl+C) - Skrót do operacji kopiowania.
-- 'paste': '\x16' (Ctrl+V) - Skrót do operacji wklejania.
+- 'paste': '\x02' (Ctrl+B) - Skrót do operacji wklejania.
 """
 
 COPY_DELAY = float(0.1)

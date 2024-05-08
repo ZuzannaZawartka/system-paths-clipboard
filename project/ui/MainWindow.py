@@ -1,3 +1,4 @@
+from logic.ClipboardManager import ClipboardManager
 from ui.components.SaveButton import SaveButton
 from ui.components.DeleteButton import DeleteButton
 from ui.components.Checkbox import Checkbox
@@ -35,6 +36,7 @@ class MainWindow(Window):
         """
         super(MainWindow, self).__init__(WINDOW_NAME)
 
+        self.clipboard_manager = ClipboardManager.get_instance()
         self.line_edit = LineEdit(self)
         self.list = List(self, self.line_edit)
         self.save_button = SaveButton(self, BUTTON_SAVE_NAME)
@@ -42,10 +44,6 @@ class MainWindow(Window):
         self.checkbox = Checkbox(self, CHECKBOX_NAME)
 
         self.init_ui()
-
-        self.current_selected_item = (
-            None  # Przechowuje aktualnie wybrany element z listy
-        )
 
     def init_ui(self):
         """
@@ -88,11 +86,5 @@ class MainWindow(Window):
         """
         Ustawia aktualnie wybrany element z listy.
         """
-        self.current_selected_item = value
-        self.line_edit.set_text(self.current_selected_item)
-
-    def get_current_selected_item(self):
-        """
-        Zwraca aktualnie wybrany element z listy.
-        """
-        return self.current_selected_item
+        self.clipboard_manager.set_selected_item_in_clipboard(value)
+        self.line_edit.set_text(value)
