@@ -3,34 +3,46 @@ from .WidgetElement import WidgetElement
 
 
 class Checkbox(WidgetElement):
-    def __init__(self, parent, text="Save as new path"):
+    """
+    Klasa reprezentująca pole wyboru (QCheckBox) w interfejsie użytkownika.
+
+    Dziedziczy po klasie WidgetElement.
+
+    Attributes:
+        parent: Referencja do obiektu rodzica (widget nadrzędny).
+        text (str): Tekst wyświetlany obok pola wyboru.
+        is_checked (bool): Flaga określająca stan zaznaczenia pola wyboru.
+        checkbox (QCheckBox): Obiekt pola wyboru PyQt.
+    """
+
+    def __init__(self, parent, text):
+        """
+        Inicjalizuje obiekt klasy Checkbox.
+
+        Args:
+            parent: Referencja do obiektu rodzica (widget nadrzędny).
+            text (str): Tekst wyświetlany obok pola wyboru (domyślnie 'Save as new path').
+        """
         super().__init__(parent)
         self.parent = parent
         self.text = text
-        self.is_checked = True
-        self.checkbox = QCheckBox()
+        self.checkbox = QCheckBox(self.text)
 
         self.init_checkbox()
 
     def init_checkbox(self):
-        # Przycisk
-        self.checkbox.setText(self.text)
-        self.checkbox.setChecked(self.is_checked)
+        """
+        Inicjalizuje pole wyboru (QCheckBox) ustawiając tekst i stan zaznaczenia.
+        """
+        self.checkbox.setChecked(True)
         self.checkbox.setObjectName(self.text)
-        self.checkbox.clicked.connect(self.on_change_checkbox)
         self.load_stylesheet(self.checkbox)
 
-    def on_change_checkbox(self):
-        if self.checkbox.isChecked():
-            print(f"Checkbox '{self.text}' is checked")
-            # Perform actions when checkbox is checked
-            # Example: self.parent.line_edit.setPlaceholderText("Enter new item")
-        else:
-            print(f"Checkbox '{self.text}' is unchecked")
-            # Perform actions when checkbox is unchecked
-            # Example: self.parent.line_edit.setPlaceholderText("")
-
-        self.is_checked = self.checkbox.isChecked()
-
     def get_checkbox_value(self):
-        return self.is_checked
+        """
+        Zwraca aktualny stan zaznaczenia pola wyboru.
+
+        Returns:
+            bool: True jeśli pole wyboru jest zaznaczone, False w przeciwnym razie.
+        """
+        return self.checkbox.isChecked()

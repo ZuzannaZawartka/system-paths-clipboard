@@ -3,11 +3,28 @@ import constants as const
 
 
 class DatabaseManager:
+    """
+    Klasa zarządzająca bazą danych SQLite, umożliwiająca operacje na tabeli 'clipboard'.
+
+    Attributes:
+        db_name (str): Nazwa pliku bazy danych.
+    """
+
     def __init__(self):
         self.db_name = const.DB_PATH
         self.create_table()
 
     def execute_query(self, query, *params):
+        """
+        Wykonuje zapytanie SQL na bazie danych.
+
+        Args:
+            query (str): Zapytanie SQL.
+            *params: Parametry zapytania.
+
+        Returns:
+            sqlite3.Cursor: Obiekt kursora z wynikami zapytania.
+        """
         with sqlite3.connect(self.db_name) as connection:
             cursor = connection.cursor()
             cursor.execute(query, params)
@@ -39,7 +56,7 @@ class DatabaseManager:
         Funkcja zwraca wszystkie wartości z bazy danych
         z możliwością ustawienia limitu.
 
-        :param limit: ilość wartości do zwrócenia
+        :param limit: ilość wartości do zwrócenia (domyślnie 10)
         """
 
         query = "SELECT value FROM clipboard ORDER BY id DESC LIMIT ?"
@@ -71,19 +88,3 @@ class DatabaseManager:
         """
         query = "DELETE FROM clipboard WHERE value = ?"
         self.execute_query(query, value)
-
-
-# testy
-if __name__ == "__main__":
-    db_manager = DatabaseManager()
-
-    db_manager.create_table()  # Utwórz tabelę przy pierwszym uruchomieniu
-    db_manager.add_data("stozeczek")
-    db_manager.add_data("dodaszniczek")
-
-    db_manager.delete_data("plik1")
-
-    # records = db_manager.get_all_data()
-
-    print(db_manager.get_last_data())
-    # print(records)

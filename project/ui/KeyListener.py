@@ -5,11 +5,7 @@ import pyperclip
 from logic.ClipboardManager import ClipboardManager
 from pynput import keyboard
 from constants import SHORTCUTS, COPY_DELAY
-from PyQt5.QtCore import (
-    QObject,
-    pyqtSignal,
-    QThread,
-)  # pylint: disable = no-name-in-module
+from PyQt5.QtCore import QObject, QThread  # pylint: disable = no-name-in-module
 
 
 class KeyListener(QObject):
@@ -25,6 +21,7 @@ class KeyListener(QObject):
         super().__init__()
         self.clipboard_manager = ClipboardManager.get_instance()
         self.selected_text = None
+        self.thread = None
 
     def start_listening(self):
         """
@@ -51,9 +48,8 @@ class KeyListener(QObject):
         try:
             if key.char == SHORTCUTS["copy"]:
                 self.on_copy()
-            if key.char == SHORTCUTS["paste"]:
+            elif key.char == SHORTCUTS["paste"]:
                 self.on_paste()
-
         except AttributeError:
             pass  # Ignoruj klawisze specjalne
 

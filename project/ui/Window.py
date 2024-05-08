@@ -1,13 +1,13 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout  # pylint: disable = no-name-in-module
 import os
 import sys
-from PyQt5.QtCore import Qt  # pylint: disable = no-name-in-module
+from PyQt5.QtCore import Qt, QSize  # pylint: disable = no-name-in-module
 from PyQt5.QtGui import QIcon  # pylint: disable = no-name-in-module
-from PyQt5.QtCore import QSize  # pylint: disable = no-name-in-module
 from PyQt5.QtWidgets import (  # pylint: disable = no-name-in-module
     QApplication,
     QAction,
     QMenu,
+    QWidget,
+    QVBoxLayout,
     QSystemTrayIcon,
 )
 from constants import WINDOW_HEIGHT, WINDOW_WIDTH, DIFFERENCE_FROM_BOTTOM
@@ -34,7 +34,7 @@ class Window(QWidget):
         super(Window, self).__init__()
         self.app = QApplication(sys.argv)
 
-        # Ustawienie tytułu okna
+        # Ustawienie okna
         self.title = title
         self.setWindowTitle(title)
         self.init_tray()
@@ -78,13 +78,7 @@ class Window(QWidget):
         self.tray_menu.addAction(exit_action)
 
         # Uzyskanie ścieżki do bieżącego pliku
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-
-        # Uzyskanie ścieżki do folderu assets
-        assets_dir = os.path.join(current_dir, "assets")
-
-        # Uzyskanie pełnej ścieżki do pliku tray_icon.png w folderze assets
-        icon_path = os.path.join(assets_dir, "tray_icon.png")
+        icon_path = os.path.join(os.path.dirname(__file__), "assets", "tray_icon.png")
 
         # Utwórz ikonę zasobnika systemowego
         self.tray_icon = QSystemTrayIcon(QIcon(icon_path), self.app)
@@ -102,7 +96,6 @@ class Window(QWidget):
         Args:
             reason (QSystemTrayIcon.ActivationReason): Powód aktywacji ikony.
         """
-
         if reason != QSystemTrayIcon.Context:
             if self.isHidden():
                 self.show()
@@ -111,10 +104,6 @@ class Window(QWidget):
                     self.showNormal()  # moze wymagac dodania activateWindow() jesli bysmy chcieli mnimalizowac
                 else:
                     self.hide()
-
-    def showEvent(self, event):
-        super().showEvent(event)
-        self.activateWindow()
 
     def closeEvent(self, event):  # pylint: disable=invalid-name
         """
@@ -125,6 +114,10 @@ class Window(QWidget):
         """
         event.ignore()  # Ignoruj domyślną obsługę zdarzenia zamykania
         self.hide()  # Ukryj okno, zamiast zamykać je
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        self.activateWindow()
 
     def close_app_by_exit(self):
         """

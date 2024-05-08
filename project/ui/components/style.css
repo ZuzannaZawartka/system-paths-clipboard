@@ -1,7 +1,3 @@
-/* style.css */
-
-/* style.css */
-
 QLineEdit {
     background-color: lightblue;
     color: black;
@@ -21,12 +17,6 @@ QLineEdit::placeholder {
      width: 200px; /* Responsywna szerokość */
 
 }
-
-
-
-/* Style for the QList */
-
-/* style.css */
 
 QListWidget {
     background-color: #FFFFFF; /* Kolor tła listy */
@@ -52,9 +42,7 @@ QListWidget::item:hover {
  QListWidget::item:selected {
     background-color: #4a5664; /* Kolor tła dla zaznaczonego elementu */
     color:white; /* Kolor tekstu dla zaznaczonego elementu */
-
 }
-
 
 /* Style for the QPushButton */
 #SAVE {

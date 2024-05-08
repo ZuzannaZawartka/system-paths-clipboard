@@ -3,10 +3,19 @@ from PyQt5.QtCore import pyqtSignal, QObject  # pylint: disable = no-name-in-mod
 
 
 class ClipboardManager(QObject):
+    """
+    Klasa zarządzająca schowkiem aplikacji oraz interakcją z bazą danych.
+
+    Ta klasa dziedziczy po QObject i emituje sygnały w odpowiedzi na zmiany w bazie danych.
+
+    Attributes:
+        all_list_updated (pyqtSignal): Sygnał emitowany po aktualizacji całej listy danych.
+        one_element_list_updated (pyqtSignal): Sygnał emitowany po dodaniu pojedynczego elementu do listy.
+    """
 
     _instance = None
 
-    all_list_updated = pyqtSignal(object)
+    all_list_updated = pyqtSignal()
     one_element_list_updated = pyqtSignal(object)
 
     @classmethod
@@ -56,9 +65,8 @@ class ClipboardManager(QObject):
         if self.database_manager.check_if_exists(self.clipboard):
             self.database_manager.delete_data(self.clipboard)
             self.database_manager.add_data(self.clipboard)
-            data = self.database_manager.get_all_data()
 
-            self.all_list_updated.emit(data)
+            self.all_list_updated.emit()
         else:
             self.database_manager.add_data(self.clipboard)
             data = self.database_manager.get_last_data()
@@ -77,8 +85,7 @@ class ClipboardManager(QObject):
 
         if self.database_manager.check_if_exists(value):
             self.database_manager.delete_data(value)
-            data = self.database_manager.get_all_data()
-            self.all_list_updated.emit(data)
+            self.all_list_updated.emit()
         else:
             print("Nie ma takiego elementu w bazie danych")
 
@@ -99,8 +106,7 @@ class ClipboardManager(QObject):
             else:
                 self.database_manager.delete_data(old_value)
                 self.database_manager.add_data(new_value)
-            data = self.database_manager.get_all_data()
-            self.all_list_updated.emit(data)
+            self.all_list_updated.emit()
         else:
             print("Nie ma takiego elementu w bazie danych")
 
