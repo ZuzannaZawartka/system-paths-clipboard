@@ -1,4 +1,4 @@
-import os
+import os 
 import sqlite3
 
 
@@ -22,7 +22,7 @@ class DatabaseManager:
         current_dir = os.path.dirname(os.path.abspath(__file__))
 
         # Ustaw ścieżkę względną do bazy danych
-        db_relative_path = os.path.join( 'my_database.db')
+        db_relative_path = os.path.join( 'database.db')
 
         # Utwórz pełną ścieżkę do bazy danych
         self.db_name = os.path.join(current_dir, db_relative_path)

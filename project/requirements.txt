@@ -1,0 +1,5 @@
+PyAutoGUI==0.9.54
+pynput==1.7.6
+pyperclip==1.8.2
+PyQt5==5.15.10
+PyQt5_sip==12.13.0

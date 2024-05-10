@@ -1,44 +1,66 @@
 
 # System Paths Manager
 
-Aplikacja **System Paths Manager** jest narzędziem rozszerzającym schowek systemowy. Pozwala użytkownikowi na przechowywanie, edycję i wygodne korzystanie z ostatnio kopiowanych ścieżek. Kopiując za pomocą skrótu klawiszowego Ctrl + C aplikacja zapisuje do bazy danych ścieżki systemowe ( Windows/Linux ) dzięki czemu w każdej chwili możemy się wrócić do ścieżek z których korzystaliśmy klikając w ikonkę i wyszukując danej ścieżki. Ścieżkę którą ostatnio skopiowaliśmy (domyślnie po skopiowaniu ścieżki, staje się ona wybraną do wklejenia ) lub wybraliśmy z okienka aplikacji możemy w każdej chwili wkleić za pomocą skrótu Ctrl+ B. Po wejściu w aplikację możemy edytować ścieżki, za pomocą checkboxa możemy wybrać tryb edycji (zapisz jako nowa ścieżka / edytuj ). Ścieżka edytowana (lub zapisana jako nowa) na ścieżkę która już istnieje zostaje przeniesiona na pierwsze miejsce w liście i nie zostaje dodana ponownie aby uniknąć duplikatów. 
+The **System Paths Manager** application is an extended clipboard tool that allows users to store, edit, and conveniently use recently copied file paths. By utilizing the keyboard shortcut Ctrl + C, the application saves system paths (Windows/Linux) into a database, enabling users to easily access and paste them later by clicking on the application icon and searching for the desired path. The most recently copied path (by default, after copying a path, it becomes the selected one for pasting) or a path chosen from the application window can be pasted at any time using the shortcut Ctrl + B. Within the application, paths can be edited. Using a checkbox, users can choose between edit modes (save as a new path / edit). An edited path (or a newly saved one) that matches an existing path is moved to the top of the list and is not added again to avoid duplicates.
 
-## Komponenty aplikacji
+## Application Components
 
-### AppManager (Zarządca aplikacji)
-- `MainWindow`: Zarządza interfejsem użytkownika, jest głównym oknem aplikacji.
-- `KeyListener`: Zarządza działaniem skrótów klawiszowych oraz kopiowaniem i wklejaniem zawartości.
-- `ClipboardManager`: Zarządza zawartością schowka, jest klasą która łączy UI z bazą danych.
+### AppManager (Application Manager)
 
-## Wymagania
+- `MainWindow`: Manages the user interface and serves as the main window of the application.
 
-1. **Python**: Zainstaluj Pythona w wersji 3.x. Możesz pobrać Pythona ze strony [python.org](https://www.python.org/downloads/).
-2. **Biblioteki**: Zainstaluj wymagane biblioteki za pomocą polecenia:
+- `KeyListener`: Manages keyboard shortcuts and the copying and pasting of content.
+
+- `ClipboardManager`: Manages clipboard content and acts as a bridge between the UI and the database.
+
+## Requirements
+
+1. **Python**: Install Python 3.x. You can download Python from [python.org](https://www.python.org/downloads/).
+
+2. **Libraries**: Install required libraries using the following command:
+
+   ```bash
+   cd project
+   pip install -r requirements.txt
    ```
-   pip install PyQt5 pyautogui pyperclip pynput
-   ```
-
-## Uruchomienie aplikacji
-
-1. **Pobierz kod**: Skopiuj kod aplikacji Paths Manager do plików w odpowiednim układzie katalogowym. Upewnij się, że pliki są ułożone zgodnie z ich strukturą.
    
-2. **Uruchomienie z terminala lub wiersza poleceń**:
-   - Otwórz terminal (Linux/Mac) lub wiersz poleceń (Windows).
-   - Przejdź do katalogu, w którym znajduje się plik `main.py` aplikacji Clipboard Manager.
-   - Uruchom aplikację, wpisując polecenie:
+	Application required:
+	- pynput
+	- pyperclip
+	- PyQt5
+
+	- PyAutoGui
+## Running the Application
+
+1. **Download the code**: Copy the Paths Manager application code.
+   ```bash
+     git clone https://github.com/ZuzannaZawartka/clipboard-manager.git
      ```
-      python -u "c:\github\DS\python-project\project\main.py" //popraw
+2. **Run from Terminal or Command Prompt**:
+
+   - Open a terminal (Linux/Mac) or command prompt (Windows).
+
+   - Navigate to the directory containing the `main.py` file of the Clipboard Manager application
+     ```bash
+     cd project
      ```
 
-## Jak korzystać z aplikacji
+   - Install required libraries 
+		```bash
+	   pip install -r requirements.txt
+     ```
+   - Run the application by entering the command:
 
-1. Uruchom aplikację.
-2. Aplikacja pojawi się jako ikonka w prawym dolnym rogu ekranu
-3. Używaj skrótów klawiaturowych (np. Ctrl+C, Ctrl+B) do zarządzania schowkiem. Każda skopiowana ścieżka za pomocą Ctrl+C pojawi się w oknie aplikacji.
-4. Dodawaj, usuwaj i edytuj przechowywane elementy za pomocą interfejsu użytkownika.
+     ```bash
+     python main.py
+     ```
 
-## Dodatkowe informacje
+## How to Use the Application
 
-- Aplikacja działa w tle, nasłuchując klawiaturę i zarządzając schowkiem systemowym.
-- Baza danych jest możliwie zoptymalizowana dzięki czemu 
-s
+1. Launch the application.
+
+2. The application will appear as an icon in the bottom right corner of the screen.
+
+3. Use keyboard shortcuts (e.g., Ctrl+C, Ctrl+B) to manage the clipboard. Each path copied using Ctrl+C will appear in the application window.
+
+4. Add, remove, and edit stored items using the user interface.
