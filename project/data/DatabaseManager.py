@@ -1,5 +1,5 @@
+import os
 import sqlite3
-import constants as const
 
 
 class DatabaseManager:
@@ -11,8 +11,22 @@ class DatabaseManager:
     """
 
     def __init__(self):
-        self.db_name = const.DB_PATH
+        self.database_path()
         self.create_table()
+
+    def database_path(self):
+        """
+        Ustawia ścieżkę do pliku bazy danych.
+        """
+          # Ustaw ścieżkę do bieżącego katalogu, w którym znajduje się plik main.py
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+
+        # Ustaw ścieżkę względną do bazy danych
+        db_relative_path = os.path.join( 'my_database.db')
+
+        # Utwórz pełną ścieżkę do bazy danych
+        self.db_name = os.path.join(current_dir, db_relative_path)
+
 
     def execute_query(self, query, *params):
         """
@@ -100,3 +114,8 @@ class DatabaseManager:
         """
         query = "DELETE FROM clipboard WHERE value = ?"
         self.execute_query(query, value)
+
+
+if __name__ == "__main__":
+
+    database = DatabaseManager()

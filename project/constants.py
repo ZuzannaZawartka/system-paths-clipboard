@@ -8,10 +8,6 @@ Klucze:
 - 'copy': '\x03' (Ctrl+C) - Skrót do operacji kopiowania.
 - 'paste': '\x02' (Ctrl+B) - Skrót do operacji wklejania.
 """
-DB_PATH = "project\data\database.db"
-"""
-Ścieżka do pliku bazy danych.
-"""
 
 COPY_DELAY = float(0.1)
 
