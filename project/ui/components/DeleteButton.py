@@ -25,6 +25,7 @@ class DeleteButton(Button):
         super().__init__(parent, text)
         self.parent = parent
         self.clipboard_manager = ClipboardManager.get_instance()
+
         self.init_button(self.on_delete_button)
 
     def on_delete_button(self):

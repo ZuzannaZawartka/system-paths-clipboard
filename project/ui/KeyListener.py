@@ -43,7 +43,8 @@ class KeyListener(QObject):
         """
         Obsługuje zdarzenie naciśnięcia klawisza.
 
-        :param key: Obiekt reprezentujący naciśnięty klawisz.
+        Args:
+            key: Obiekt reprezentujący naciśnięty klawisz.
         """
         try:
             if key.char == SHORTCUTS["copy"]:
@@ -83,6 +84,9 @@ class KeyListener(QObject):
     def is_valid_path(self, path):
         """
         Sprawdza czy ścieżka pliku jest mniej więcej poprawna.
+
+        Args:
+            path (str): Ścieżka pliku.
         """
         regex = r'(\/.*|[a-zA-Z]:\\(?:([^<>:"\/\\|?*]*[^<>:"\/\\|?*.]\\|..\\)*([^<>:"\/\\|?*]*[^<>:"\/\\|?*.]\\?|..\\))?)'
 

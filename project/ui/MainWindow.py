@@ -37,17 +37,23 @@ class MainWindow(Window):
     def __init__(self):
         """
         Inicjalizacja głównego okna (`MainWindow`).
-
         Ustawia tytuł okna i inicjuje interfejs użytkownika.
         """
         super(MainWindow, self).__init__(WINDOW_NAME)
 
         self.clipboard_manager = ClipboardManager.get_instance()
         self.line_edit = LineEdit(self)
-        self.list = List(self, self.line_edit)
+        self.list = List(self)
         self.save_button = SaveButton(self, BUTTON_SAVE_NAME)
         self.delete_button = DeleteButton(self, BUTTON_DELETE_NAME)
         self.checkbox = Checkbox(self, CHECKBOX_NAME)
+        self.horizontal_layout = (
+            QHBoxLayout()
+        )  # Tworzenie układu poziomego dla QLineEdit i QPushButton
+
+        self.horizontal_layout2 = (
+            QHBoxLayout()
+        )  # Tworzenie układu poziomego dla QList i QPushButton
 
         self.init_ui()
 
@@ -56,26 +62,17 @@ class MainWindow(Window):
         Ustawia interfejs użytkownika dla głównego okna.
 
         """
-
-        # Dodanie pola tekstowego i przycisku zapisu do pierwszego sektora
-        # Tworzenie układu poziomego dla QLineEdit i QPushButton
-        self.horizontal_layout = QHBoxLayout()
-
         # Lista opcji wyświetlana w oknie i Przycisk
-        self.horizontal_layout.addWidget(self.line_edit.text_edit)
+        self.horizontal_layout.addWidget(self.line_edit.text_edit_widget)
         self.horizontal_layout.addWidget(self.save_button.button)
 
         # Dodanie układu poziomego do układu pionowego
         self.layout.addLayout(self.horizontal_layout)
 
-        # SEKTOR2 , checkbox
-        self.layout.addWidget(self.checkbox.checkbox)
+        # checkbox
+        self.layout.addWidget(self.checkbox.checkbox_widget)
 
         # sektor 2 , lista i obok przycisk usuwania
-        # Tworzenie układu poziomego dla QList i QPushButton
-        self.horizontal_layout2 = QHBoxLayout()
-
-        # Inicjalizajca listy opcji wyświetlana w oknie
         self.horizontal_layout2.addWidget(self.list.list_widget)
 
         # Przycisk

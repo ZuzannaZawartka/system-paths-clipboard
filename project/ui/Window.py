@@ -17,10 +17,15 @@ class Window(QWidget):
     """
     Klasa `Window` reprezentuje podstawowe okno aplikacji.
 
-    Dostarcza funkcjonalności takie jak przełączanie między oknami
-    oraz obsługa zdarzenia zamykania okna.
+    Dziedziczy po klasie `QWidget` i dostarcza podstawowe funkcjonalności okna.
+    Zarządza funkcjonalnością tray icon oraz układem okna.
 
     Attributes:
+        app (QApplication): Instancja aplikacji.
+        title (str): Tytuł okna.
+        tray_icon (QSystemTrayIcon): Ikona zasobnika systemowego.
+        tray_menu (QMenu): Menu dla ikony zasobnika systemowego.
+
         layout (QVBoxLayout): Układ pionowy okna.
     """
 
@@ -115,14 +120,20 @@ class Window(QWidget):
         event.ignore()  # Ignoruj domyślną obsługę zdarzenia zamykania
         self.hide()  # Ukryj okno, zamiast zamykać je
 
-    def showEvent(self, event):
+    def showEvent(self, event):  # pylint: disable=invalid-name
+        """
+        override metody showEvent z klasy QWidget.
+        Obsługuje zdarzenie pokazania okna.
+
+        Args:
+            event (QShowEvent): Zdarzenie pokazania okna.
+        """
         super().showEvent(event)
         self.activateWindow()
 
     def close_app_by_exit(self):
         """
         Zamknięcie aplikacji na klikniecie exit.
-
         Zatrzymuje aplikację, ale nie wychodzi z `app.exec_()`.
         """
         self.app.quit()

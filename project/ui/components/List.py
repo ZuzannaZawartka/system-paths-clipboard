@@ -17,18 +17,16 @@ class List(WidgetElement):
         clipboard_manager (ClipboardManager): Instancja menedżera schowka.
         parent: Referencja do obiektu rodzica (widget nadrzędny).
         list_widget (QListWidget): Obiekt listy PyQt.
-        line_edit: Referencja do pola tekstowego w głównym oknie.
     """
 
     item_selected = pyqtSignal(str)
 
-    def __init__(self, parent, main_window_line_edit):
+    def __init__(self, parent):
         """
         Inicjalizuje obiekt klasy List.
 
         Args:
             parent: Referencja do obiektu rodzica (widget nadrzędny).
-            main_window_line_edit: Referencja do pola tekstowego w głównym oknie.
         """
         super().__init__(parent)
 
@@ -37,7 +35,6 @@ class List(WidgetElement):
         )  # Pobranie instancji singletona
         self.parent = parent
         self.list_widget = QListWidget()
-        self.line_edit = main_window_line_edit
 
         self.init_list_widget()
         self.setup_connections()

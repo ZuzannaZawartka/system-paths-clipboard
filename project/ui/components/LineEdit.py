@@ -10,7 +10,7 @@ class LineEdit(WidgetElement):
 
     Attributes:
         parent: Referencja do obiektu rodzica (widget nadrzędny).
-        text_edit (QLineEdit): Obiekt pola tekstowego PyQt.
+        text_edit_widget (QLineEdit): Obiekt pola tekstowego PyQt.
     """
 
     def __init__(self, parent):
@@ -28,9 +28,8 @@ class LineEdit(WidgetElement):
         """
         Inicjalizuje pole tekstowe (QLineEdit) i ładuje styl dla niego.
         """
-        self.text_edit = QLineEdit()
-
-        self.load_stylesheet(self.text_edit)
+        self.text_edit_widget = QLineEdit()
+        self.load_stylesheet(self.text_edit_widget)
 
     def set_text(self, text):
         """
@@ -39,8 +38,8 @@ class LineEdit(WidgetElement):
         Args:
             text (str): Tekst do ustawienia w polu tekstowym.
         """
-        self.text_edit.setText(text)
-        self.text_edit.setFocus()
+        self.text_edit_widget.setText(text)
+        self.text_edit_widget.setFocus()
 
     def get_text(self):
         """
@@ -49,4 +48,4 @@ class LineEdit(WidgetElement):
         Returns:
             str: Aktualny tekst wpisany w pole tekstowe.
         """
-        return self.text_edit.text()
+        return self.text_edit_widget.text()

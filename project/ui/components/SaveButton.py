@@ -9,7 +9,7 @@ class SaveButton(Button):
     Dziedziczy po klasie Button.
 
     Attributes:
-        parent: Referencja do obiektu rodzica (widget nadrzędny).
+        parent: Referencja do obiektu rodzica (widget nadrzędny) - MainWindow.
         clipboard_manager (ClipboardManager): Instancja menedżera schowka.
     """
 

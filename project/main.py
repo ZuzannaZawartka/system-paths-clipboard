@@ -19,7 +19,6 @@ class AppManager:
         """
         Inicjalizuje obiekt `AppManager`.
         """
-
         self.clipboard_manager = ClipboardManager()
         self.main_window = MainWindow()
         self.key_listener = KeyListener()
@@ -27,7 +26,6 @@ class AppManager:
     def run(self):
         """
         Uruchamia główną pętlę aplikacji.
-
         Rozpoczyna nasłuchiwanie klawiatury i uruchamia główne okno aplikacji.
         """
         self.key_listener.start_listening()

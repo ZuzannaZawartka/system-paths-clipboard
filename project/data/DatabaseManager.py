@@ -46,17 +46,19 @@ class DatabaseManager:
 
         Wartość zostaje dodana do bazy danych w tabeli 'clipboard'.
 
-        :param value: wartość do dodania
+        Args:
+            value: wartość do dodania
         """
         query = "INSERT INTO clipboard (value) VALUES (?)"
         self.execute_query(query, value)
 
-    def get_all_data(self, limit=10):
+    def get_all_data(self, limit=20):
         """
         Funkcja zwraca wszystkie wartości z bazy danych
         z możliwością ustawienia limitu.
 
-        :param limit: ilość wartości do zwrócenia (domyślnie 10)
+        Args:
+          limit: ilość wartości do zwrócenia (domyślnie 20)
         """
 
         query = "SELECT value FROM clipboard ORDER BY id DESC LIMIT ?"
@@ -67,6 +69,9 @@ class DatabaseManager:
     def get_last_data(self):
         """
         Funkcja zwraca ostatnią wartość z bazy danych.
+
+        Returns:
+            str: ostatnia wartość z bazy danych
         """
         query = "SELECT value FROM clipboard ORDER BY id DESC LIMIT 1"
         cursor = self.execute_query(query)
@@ -75,6 +80,12 @@ class DatabaseManager:
     def check_if_exists(self, value):
         """
         Funkcja sprawdza czy wartość znajduje się w bazie danych.
+
+        Args:
+            value: wartość do sprawdzenia
+
+        Returns:
+            bool: True jeśli wartość istnieje, False w przeciwnym przypadku
         """
         query = "SELECT value FROM clipboard WHERE value = ?"
         cursor = self.execute_query(query, value)
@@ -84,7 +95,8 @@ class DatabaseManager:
         """
         Funkcja usuwa wartość z bazy danych.
 
-        :param value: wartość do usunięcia
+        Args:
+            value: wartość do usunięcia
         """
         query = "DELETE FROM clipboard WHERE value = ?"
         self.execute_query(query, value)

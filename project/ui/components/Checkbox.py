@@ -12,7 +12,7 @@ class Checkbox(WidgetElement):
         parent: Referencja do obiektu rodzica (widget nadrzędny).
         text (str): Tekst wyświetlany obok pola wyboru.
         is_checked (bool): Flaga określająca stan zaznaczenia pola wyboru.
-        checkbox (QCheckBox): Obiekt pola wyboru PyQt.
+        checkbox_widget (QCheckBox): Obiekt pola wyboru PyQt.
     """
 
     def __init__(self, parent, text):
@@ -26,7 +26,7 @@ class Checkbox(WidgetElement):
         super().__init__(parent)
         self.parent = parent
         self.text = text
-        self.checkbox = QCheckBox(self.text)
+        self.checkbox_widget = QCheckBox(self.text)
 
         self.init_checkbox()
 
@@ -34,9 +34,9 @@ class Checkbox(WidgetElement):
         """
         Inicjalizuje pole wyboru (QCheckBox) ustawiając tekst i stan zaznaczenia.
         """
-        self.checkbox.setChecked(True)
-        self.checkbox.setObjectName(self.text)
-        self.load_stylesheet(self.checkbox)
+        self.checkbox_widget.setChecked(True)
+        self.checkbox_widget.setObjectName(self.text)
+        self.load_stylesheet(self.checkbox_widget)
 
     def get_checkbox_value(self):
         """
@@ -45,4 +45,4 @@ class Checkbox(WidgetElement):
         Returns:
             bool: True jeśli pole wyboru jest zaznaczone, False w przeciwnym razie.
         """
-        return self.checkbox.isChecked()
+        return self.checkbox_widget.isChecked()

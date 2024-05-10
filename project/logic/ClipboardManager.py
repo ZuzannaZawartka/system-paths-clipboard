@@ -22,6 +22,9 @@ class ClipboardManager(QObject):
     def get_instance(cls):
         """
         Zwraca instancję singletona.
+
+        Returns:
+            ClipboardManager: Instancja singletona.
         """
         if cls._instance is None:
             cls._instance = cls()
@@ -34,12 +37,14 @@ class ClipboardManager(QObject):
         self.current_selected_item = (
             None  # Przechowuje aktualnie wybrany element z listy
         )
-
         self.database_manager = DatabaseManager()
 
     def on_init_fetch_data_from_database_to_ui(self):
         """
         Funkcja odpowiada za pobranie danych z bazy danych i zainicjalizowanie listy w oknie głównym.
+
+        Returns:
+            list: Lista danych z bazy danych.
         """
         data = (
             self.database_manager.get_all_data()
@@ -58,19 +63,18 @@ class ClipboardManager(QObject):
         Dzięki czemu pobieramy wszystkie dane z bazy tylko gdy jest to konieczne.
         W pozostałych przypadkach dodając jeden element, robimy to szybciej.
 
-        :param clipboard: Tekst zapisany w schowku.
+        Args:
+            clipboard: Tekst zapisany w schowku.
         """
         self.clipboard = value  # Przypisanie wartości do zmiennej clipboard
 
         if self.database_manager.check_if_exists(self.clipboard):
             self.database_manager.delete_data(self.clipboard)
             self.database_manager.add_data(self.clipboard)
-
             self.all_list_updated.emit()
         else:
             self.database_manager.add_data(self.clipboard)
             data = self.database_manager.get_last_data()
-
             self.one_element_list_updated.emit(data)
 
     def delete_from_database(self, value):
@@ -80,7 +84,8 @@ class ClipboardManager(QObject):
         Usuwa wartość z bazy danych.
         Wywoluje zmiane danych na liście w oknie głównym.
 
-        :param value: Tekst zapisany w schowku.
+        Args:
+            value: Tekst zapisany w schowku.
         """
 
         if self.database_manager.check_if_exists(value):
@@ -96,8 +101,9 @@ class ClipboardManager(QObject):
         Aktualizuje wartość w bazie danych.
         Wywoluje zmiane danych na liście w oknie głównym.
 
-        :param old_value: Stara wartość
-        :param new_value: Nowa wartość
+        Args:
+            old_value: Stara wartość
+            new_value: Nowa wartość
         """
         if self.database_manager.check_if_exists(old_value):
             if self.database_manager.check_if_exists(new_value):
@@ -119,5 +125,8 @@ class ClipboardManager(QObject):
     def get_selected_item(self):
         """
         Zwraca aktualnie wybrany element z listy.
+
+        Returns:
+            str: Aktualnie wybrany element z listy.
         """
         return self.current_selected_item
