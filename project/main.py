@@ -10,7 +10,7 @@ class AppManager:
     Klasa `AppManager` łączy wszystkie elementy aplikacji w całość.
 
     Attributes:
-        window_manager (WindowManager): Obiekt zarządzający interfejsem użytkownika.
+        main_window (MainWindow): Obiekt zarządzający interfejsem użytkownika.
         key_listener (KeyListener): Obiekt nasłuchujący klawiaturę.
         clipboard_manager (ClipboardManager): Obiekt zarządzający schowkiem (clipboard).
     """
