@@ -33,7 +33,7 @@ The **System Paths Manager** application is an extended clipboard tool that allo
 
 1. **Download the code**: Copy the Paths Manager application code.
    ```bash
-     git clone https://github.com/ZuzannaZawartka/clipboard-manager.git
+     git clone https://github.com/ZuzannaZawartka/system-paths-manager.git
      ```
 2. **Run from Terminal or Command Prompt**:
 
