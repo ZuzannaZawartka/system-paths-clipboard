@@ -21,7 +21,7 @@ class AppManager:
         """
         self.clipboard_manager = ClipboardManager()
         self.main_window = MainWindow()
-        self.key_listener = KeyListener()
+        self.key_listener = KeyListener(self.main_window)
 
     def run(self):
         """

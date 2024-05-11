@@ -49,6 +49,9 @@ class Window(QWidget):
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
+         # Instaluj event filter dla tego okna
+        self.installEventFilter(self)
+
     def init_window(self):
         """
         Inicjalizacja głównego okna aplikacji.
@@ -67,8 +70,10 @@ class Window(QWidget):
 
         self.setGeometry(self.initial_x, self.initial_y, WINDOW_WIDTH, WINDOW_HEIGHT)
         self.setWindowFlags(
-            self.windowFlags() | Qt.FramelessWindowHint | Qt.Tool
+            self.windowFlags() | Qt.FramelessWindowHint | Qt.Tool | Qt.WindowStaysOnTopHint
         )  # Usunięcie ramki okna, i zablokowanie przesuwania okna
+
+        self.show()
 
     def init_tray(self):
         """
@@ -94,21 +99,21 @@ class Window(QWidget):
         # Pokaż ikonę w zasobniku systemowym
         self.tray_icon.show()
 
-    def on_tray_click(self, reason):
+    def on_tray_click(self):
         """
         Obsługa akcji po kliknięciu na ikonę zasobnika systemowego.
-
-        Args:
-            reason (QSystemTrayIcon.ActivationReason): Powód aktywacji ikony.
         """
-        if reason != QSystemTrayIcon.Context:
-            if self.isHidden():
-                self.show()
-            else:
-                if self.isMinimized():
-                    self.showNormal()  # moze wymagac dodania activateWindow() jesli bysmy chcieli mnimalizowac
-                else:
-                    self.hide()
+        self.show_hide_window()
+
+    def show_hide_window(self):
+        """
+        Pokazuje lub ukrywa okno aplikacji.
+        """
+        if(self.isHidden()):
+            self.show()
+        else:
+            self.hide()
+       
 
     def closeEvent(self, event):  # pylint: disable=invalid-name
         """
@@ -120,20 +125,14 @@ class Window(QWidget):
         event.ignore()  # Ignoruj domyślną obsługę zdarzenia zamykania
         self.hide()  # Ukryj okno, zamiast zamykać je
 
-    def showEvent(self, event):  # pylint: disable=invalid-name
-        """
-        override metody showEvent z klasy QWidget.
-        Obsługuje zdarzenie pokazania okna.
-
-        Args:
-            event (QShowEvent): Zdarzenie pokazania okna.
-        """
-        super().showEvent(event)
-        self.activateWindow()
-
     def close_app_by_exit(self):
         """
         Zamknięcie aplikacji na klikniecie exit.
         Zatrzymuje aplikację, ale nie wychodzi z `app.exec_()`.
         """
         self.app.quit()
+
+
+
+
+        

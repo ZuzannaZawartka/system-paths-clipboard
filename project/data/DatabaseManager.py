@@ -115,7 +115,3 @@ class DatabaseManager:
         query = "DELETE FROM clipboard WHERE value = ?"
         self.execute_query(query, value)
 
-
-if __name__ == "__main__":
-
-    database = DatabaseManager()

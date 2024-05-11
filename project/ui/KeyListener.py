@@ -14,14 +14,18 @@ class KeyListener(QObject):
     i emitowania sygnałów w przypadku naciśnięcia odpowiednich skrótów.
     """
 
-    def __init__(self):
+    def __init__(self, main_window):
         """
         Inicjalizuje obiekt `KeyListener`.
         """
         super().__init__()
         self.clipboard_manager = ClipboardManager.get_instance()
+        self.main_window = main_window
         self.selected_text = None
+        self.keyboard_pressed = set()
         self.thread = None
+       
+  
 
     def start_listening(self):
         """
@@ -36,7 +40,7 @@ class KeyListener(QObject):
         """
         Funkcja nasłuchująca klawiatury.
         """
-        with keyboard.Listener(on_press=self.on_press):
+        with keyboard.Listener(on_press=self.on_press, on_release=self.on_release):
             self.thread.exec_()  # Uruchom pętlę wątku
 
     def on_press(self, key):
@@ -46,13 +50,26 @@ class KeyListener(QObject):
         Args:
             key: Obiekt reprezentujący naciśnięty klawisz.
         """
-        try:
-            if key.char == SHORTCUTS["copy"]:
-                self.on_copy()
-            elif key.char == SHORTCUTS["paste"]:
-                self.on_paste()
-        except AttributeError:
-            pass  # Ignoruj klawisze specjalne
+        self.keyboard_pressed.add(str(key))
+
+        if SHORTCUTS["copy"] in self.keyboard_pressed:
+            self.on_copy()
+        elif SHORTCUTS["paste"] in self.keyboard_pressed:
+            self.on_paste()
+            self.keyboard_pressed.clear()
+        elif all(shortcut in self.keyboard_pressed for shortcut in SHORTCUTS["window_show_hide_action"]):
+            self.main_window.show_hide_window()
+
+    def on_release(self, key):
+        """
+        Obsługuje zdarzenie zwolnienia klawisza.
+
+        Args:
+            key: Obiekt reprezentujący zwolniony klawisz.
+        """
+        if str(key) in self.keyboard_pressed:
+            self.keyboard_pressed.remove(str(key))
+
 
     def on_copy(self):
         """
@@ -61,8 +78,7 @@ class KeyListener(QObject):
         Sprawdza czy tekst był już zaznaczony, a następnie jesli był wywołuje Opóźnienie.
         Następnie pobiera zaznaczony tekst i wywoluje funkcję na bazie danych.
         """
-        if self.selected_text is not None:  # Jeśli tekst juz byl zaznaczony
-            time.sleep(COPY_DELAY)  # Poczekaj 0.1 sekundy aby poprawnie skopiować tekst
+        time.sleep(COPY_DELAY)  # Poczekaj 0.1 sekundy aby poprawnie skopiować tekst
         self.selected_text = pyperclip.paste()  # Pobierz zaznaczony tekst
 
         if self.is_valid_path(self.selected_text):

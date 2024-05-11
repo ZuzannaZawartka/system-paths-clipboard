@@ -1,9 +1,13 @@
+from pynput import keyboard
+
 SHORTCUTS = {
-    "copy": "\x03",  # Skrót 'copy' (Ctrl+C)
-    "paste": "\x02",  # Skrót 'paste' (Ctrl+B)
+    "copy": r"'\x03'",  # Skrót 'copy' (Ctrl+C)
+    "paste": r"'\x02'", # Skrót 'paste' (Ctrl+V)
+    "window_show_hide_action": ['Key.shift', 'Key.ctrl_l'] # Skrót 'window_show_hide_action' (Alt + Left Shift )
 }
 """
 Słownik zawierający skróty klawiszowe do operacji kopiowania i wklejania.
+Wartości takie jaki '\x03' to wartosci key z biblioteki pynput.keyboard dla skrótów klawiszowych w tym przypadku dla ctr+c.
 Klucze:
 - 'copy': '\x03' (Ctrl+C) - Skrót do operacji kopiowania.
 - 'paste': '\x02' (Ctrl+B) - Skrót do operacji wklejania.
