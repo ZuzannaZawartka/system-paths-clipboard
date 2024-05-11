@@ -71,3 +71,7 @@ The **System Paths Manager** application is an extended clipboard tool that allo
 3. Use keyboard shortcuts (e.g., Ctrl+C, Ctrl+B) to manage the clipboard. Each path copied using Ctrl+C will appear in the application window.
 
 4. Add, remove, and edit stored items using the user interface.
+
+## Graphics Resources
+
+- **Application Icon**: The application icon was obtained from [freepik.com](https://www.freepik.com/icon/mobile-application_5021035) Icon designed by zafdesign
