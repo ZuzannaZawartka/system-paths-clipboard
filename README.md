@@ -1,6 +1,6 @@
-# System Paths Manager
+# System Paths Clipboard
 
-The **System Paths Manager** application is an extended clipboard tool that allows users to store, edit, and conveniently use recently copied file paths. By utilizing the keyboard shortcut Ctrl + C, the application saves system paths (Windows/Linux) into a database, enabling users to easily access and paste them later by clicking on the application icon (the application can also be opened with the Ctrl + left Shift shortcut) and searching for the desired path. The most recently copied path (by default, after copying a path, it becomes the selected one for pasting) or a path chosen from the application window can be pasted at any time using the shortcut Ctrl + B. Within the application, paths can be edited. Using a checkbox, users can choose between edit modes (save as a new path / edit). An edited path (or a newly saved one) that matches an existing path is moved to the top of the list and is not added again to avoid duplicates. 
+The **System Paths Clipboard** application is an extended clipboard tool that allows users to store, edit, and conveniently use recently copied file paths. By utilizing the keyboard shortcut Ctrl + C, the application saves system paths (Windows/Linux) into a database, enabling users to easily access and paste them later by clicking on the application icon (the application can also be opened with the Ctrl + left Shift shortcut) and searching for the desired path. The most recently copied path (by default, after copying a path, it becomes the selected one for pasting) or a path chosen from the application window can be pasted at any time using the shortcut Ctrl + B. Within the application, paths can be edited. Using a checkbox, users can choose between edit modes (save as a new path / edit). An edited path (or a newly saved one) that matches an existing path is moved to the top of the list and is not added again to avoid duplicates. 
 
 ## Screenshots
 
@@ -41,7 +41,7 @@ The **System Paths Manager** application is an extended clipboard tool that allo
 
 1. **Download the code**: Copy the Paths Manager application code.
    ```bash
-     git clone https://github.com/ZuzannaZawartka/system-paths-manager.git
+     git clone https://github.com/ZuzannaZawartka/system-paths-clipboard.git
      ```
 2. **Run from Terminal or Command Prompt**:
 
