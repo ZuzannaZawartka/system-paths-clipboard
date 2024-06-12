@@ -1,6 +1,10 @@
 # Custom files
 main.spec
 
+#Database
+database.db
+*.db
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

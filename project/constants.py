@@ -1,9 +1,10 @@
-from pynput import keyboard
-
 SHORTCUTS = {
     "copy": r"'\x03'",  # Skrót 'copy' (Ctrl+C)
-    "paste": r"'\x02'", # Skrót 'paste' (Ctrl+V)
-    "window_show_hide_action": ['Key.shift', 'Key.ctrl_l'] # Skrót 'window_show_hide_action' (Alt + Left Shift )
+    "paste": r"'\x02'",  # Skrót 'paste' (Ctrl+V)
+    "window_show_hide_action": [
+        "Key.shift",
+        "Key.ctrl_l",
+    ],  # Skrót 'window_show_hide_action' (Alt + Left Shift )
 }
 """
 Słownik zawierający skróty klawiszowe do operacji kopiowania i wklejania.
@@ -17,10 +18,10 @@ COPY_DELAY = float(0.1)
 
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 400
-DIFFERENCE_FROM_BOTTOM = 40
+DIFFERENCE_FROM_BOTTOM = 60
 
 
 BUTTON_SAVE_NAME = "SAVE"
 BUTTON_DELETE_NAME = "DELETE"
 CHECKBOX_NAME = "Save as new path"
-WINDOW_NAME = "Clipboard Manager"
+WINDOW_NAME = "System Paths Manager"
